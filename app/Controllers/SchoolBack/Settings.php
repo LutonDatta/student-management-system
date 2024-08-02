@@ -35,14 +35,10 @@ class Settings extends BaseController {
     
     private function save_settings(){
         if( $this->request->getPost('submitBtnInstSett') == 'instInfoBasic'){
-            $instTaglineBn = strval( $this->request->getPost('instTaglineBn'));
             $instTaglineEn = strval( $this->request->getPost('instTaglineEn'));
-            $instNameBn = strval( $this->request->getPost('instNameBn'));
             $instNameEn = strval( $this->request->getPost('instNameEn'));
                     
-            update_option('instTaglineBn', strip_tags($instTaglineBn));
             update_option('instTaglineEn', strip_tags($instTaglineEn));
-            update_option('instNameBn', strip_tags($instNameBn));
             update_option('instNameEn', strip_tags($instNameEn));
             
             $msg = get_display_msg("Basic information of institution has been updaterd.",'success');

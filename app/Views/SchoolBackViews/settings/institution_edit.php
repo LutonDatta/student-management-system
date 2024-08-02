@@ -31,22 +31,12 @@
                                     <input name="instNameEn" value="<?=esc(get_option('instNameEn'));?>" type="text" class="form-control" >
                                 </div>
                             </div>
-                            <div class="form-group row" data-toggle="tooltip">
-                                <label class="col-sm-3 col-form-label">Name of institution (Bangla)</label>
-                                <div class="col-sm-9">                        
-                                    <input name="instNameBn" value="<?=esc(get_option('instNameBn'));?>" type="text" class="form-control" >
-                                </div>
-                            </div>
                             <div class="form-group row"><label class="col-sm-3 col-form-label">Tagline (English)</label>
                                 <div class="col-sm-9">
                                     <input name="instTaglineEn" value="<?=esc(get_option('instTaglineEn'));?>" type="text" class="form-control" >
                                 </div>
                             </div>
-                            <div class="form-group row"><label class="col-sm-3 col-form-label">Tagline (Bangla)</label>
-                                <div class="col-sm-9">
-                                    <input name="instTaglineBn" value="<?=esc(get_option('instTaglineBn'));?>" type="text" class="form-control" >
-                                </div>
-                            </div>
+                            
                         </div>
                         <div class="mail-body text-right">
                             <button type="submit" name="submitBtnInstSett" value="instInfoBasic" class="btn btn-sm btn-primary" ><i class="fa fa-save"></i> Save Settings</button>

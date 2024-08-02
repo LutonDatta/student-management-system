@@ -11,7 +11,7 @@
 <?php
     // For new students/not admitted students, we will see error. so return them without showing errors
     if( ! is_object($studentSCM)){
-        echo get_display_msg('Invalid student. May be stuent ID not given. Please check.','danger');
+        echo get_display_msg('Invalid student. May be stuent ID not given. Please check. ' . anchor('admin/admission/student/list','Select Student Here',['class'=>'btn btn-info']),'danger');
         return false; // Do not process rest of the html file
     }
     
