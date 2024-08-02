@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * Admin Menu language strings.
+ *
+ * @package    Ultra-School
+ * @author     Ultra-School Dev Team
+ * @copyright  2019-2020 Ultra Data Safety Solutions Pvt. Ltd.
+ * @license    Private License
+ * @link       https://ultra-school.com
+ * @since      Version 1.0.0
+ * @filesource
+ */
+
+return [
+    'career_apply_to_job'    => 'চাকরিতে আবেদন করুন',
+    'earnings'    => 'উপার্জন',
+    'editor'    => 'ইডিটর',
+    'class_list'      => 'ক্লাশের তালিকা',  
+    'trash'     => 'ভাগার',
+    // Dropdown when clicked in image thumbnail
+    'regular_works' => 'দৈনন্দিন কাজ',
+    'profile' => 'প্রোফাইল',
+    'url_name' => 'ইউআরএল নাম',
+    
+    // Left Navigation menu
+    'affiliate' => 'অ্যাফিলিয়েট',
+    'dashboard' => 'ড্যাশবোর্ড',
+    'go_to_dashboard' => 'ড্যাশবোর্ডে যান',
+    'academic'  => 'একাডেমিক',
+        'attendance_book'  => 'হাজিরা খাতা',
+        'attendance_view'  => 'হাজিরা দেখুন',
+        'academic_class_n_faculty'  => 'ক্লাস ও ফেকাল্টি',
+        'academic_courses'          => 'কোর্স সমূহ',
+        'academic_class_wise_course' => 'ক্লাস ভিত্তিক কোর্স',
+    'admission' => 'ভর্তি',
+        'admission_applications'    => 'আবেদনসমূহ',
+        'admission_edit_applications' => 'আবেদন এডিট করুন',
+        'admission_bulk_action'     => 'গুচ্ছ কাজ',
+        'admission_step_up_down'    => 'উচু নিচু ধাপ (উত্তীর্ণ/অনুত্তীর্ণ)',
+        'admission_student_list'    => 'শিক্ষার্থীদের তালিকা',
+        'admission_setup'           => 'সেট আপ',
+        'admission_application_fee_collections' => 'ভর্তির আবেদন ফি সংগৃহীত',
+        'admission_main_fee_collections'        => 'সংগৃহীত ভর্তি ফি',
+    'payment' => 'অর্থ পরিশোধ',
+        'salary_setup'              => 'বেতন সেটআপ',
+        'salary_collections'        => 'সংগৃহীত বেতন',
+        'payment_targets'           => 'লক্ষ্য মালা',
+        'payment_collections'       => 'সংগ্রহ',
+        'payment_summary'           => 'সার সংক্ষেপ',
+    'library' => 'লাইব্রেরি',
+        'library_books_items'   => 'বই সমূহ',
+        'library_distributions' => 'বিতরণ',
+        'library_recycle_bin'   => 'ভাগার',
+    'messages' => 'বার্তা সমূহ',
+        'messages_local_inbox'  => 'ইনবক্স',   
+        'messages_trash'        => 'ভাগার',
+        'messages_sms'          => 'এসএমএস', 
+        'messages_email'        => 'ইমেইল',
+        'messages_recharge'     => 'রিচার্য',  
+        'email_sms_history'     => 'ব্যবহার',    
+    'publications'  => 'প্রচারণা',  
+        'publications_articles'  => 'রচনা',  
+            'publications_articles_editor'  => 'ইডিটর',  
+            'publications_articles_list'  => 'রচনার তালিকা',  
+            'publications_articles_trash'  => 'ভাগার',  
+        'publications_events'  => 'অনুষ্ঠান',  
+            'publications_events_editor'  => 'ইডিটর',  
+            'publications_events_list'  => 'অনুষ্ঠানের তালিকা',  
+            'publications_events_trash'  => 'ভাগার',  
+        'publications_notices'  => 'বিজ্ঞপ্তি',  
+            'publications_notices_editor'  => '‌ইডিটর',  
+            'publications_notices_list'  => 'বিজ্ঞপ্তির তালিকা',  
+            'publications_notices_trash'  => 'ভাগার',  
+    'gallery'  => 'গ্যালারি',  
+        'gallery_uploader'      => 'আপলোডার',  
+        'gallery_images'        => 'ছবি',  
+        'gallery_other_files'  => 'অন্যান্য ফাইল',  
+        'image_optimizer'       => 'চিত্র অপ্টিমাইজার',  
+        'gallery_trash'         => 'ভাগার',  
+    'settings'  => 'সেটিংস',  
+        'settings_basic_info'  => 'মৌলিক তথ্যাবলী',  
+        'settings_slider'   => 'স্লাইডার',  
+        'settings_themes'   => 'ডিজাইন',  
+        'settings_youtube'   => 'ইউটিউব',  
+        'footer_links'   => 'ফুটার লিংক',  
+    'users'  => 'ব্যবহারকারী', 
+        'users_editor'      => 'ইডিটর',  
+        'users_list_all'    => 'তালিকা',  
+        'users_pending'     => 'অননুমোদিত',  
+        'users_role_editor' => 'ক্ষমতা বিভাজন',
+    'career'  => 'ক্যারিয়ার',
+        'career_circulars'      => 'বিজ্ঞপ্তির তালিকা',  
+        'career_add_circular'   => 'নতুন বিজ্ঞপ্তি দিন',  
+        'career_applicants'     => 'আবেদনকারীর তালিকা',  
+    'backup' => 'ব্যাকআপ',
+        'backup_export' => 'এক্সপোর্ট',
+        'backup_import' => 'ইমপোর্ট',
+        'backup_history' => 'ইতিহাস',
+];

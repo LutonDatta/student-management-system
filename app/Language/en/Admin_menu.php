@@ -1,0 +1,100 @@
+<?php
+
+/**
+ * Admin Menu language strings.
+ *
+ * @package    Ultra-School
+ * @author     Ultra-School Dev Team
+ * @copyright  2019-2020 Ultra Data Safety Solutions Pvt. Ltd.
+ * @license    Private License
+ * @link       https://ultra-school.com
+ * @since      Version 1.0.0
+ * @filesource
+ */
+
+return [
+    'career_apply_to_job'    => 'Apply to job',
+    'earnings'    => 'Earnings',
+    'editor'    => 'Editor',
+    'class_list'      => 'Class List',  
+    'trash'     => 'Trash', 
+    // Dropdown when clicked in image thumbnail
+    'regular_works' => 'Regular Works',
+    'profile' => 'Profile',
+    'url_name' => 'URL Name',
+    
+    // Left Navigation menu
+    'affiliate' => 'Affiliate',
+    'dashboard' => 'Dashboard',
+    'go_to_dashboard' => 'Go To Dashboard',
+    'academic'  => 'Academic',
+        'attendance_book'  => 'Attendance Book',
+        'attendance_view'  => 'View Attendance',
+        'academic_class_n_faculty'  => 'Class & Faculty',
+        'academic_courses'          => 'Courses',
+        'academic_class_wise_course' => 'Class Wise Course',
+    'admission' => 'Admission',
+        'admission_applications'    => 'Applications',
+        'admission_edit_applications' => 'Edit Application',
+        'admission_bulk_action'     => 'Bulk Action',
+        'admission_step_up_down'    => 'Upgrade / Downgrade (Pass/Fail)',
+        'admission_student_list'    => 'Student List',
+        'admission_setup'           => 'Setup',
+        'admission_application_fee_collections' => 'Application Fee Collections',
+        'admission_main_fee_collections'        => 'Admission Fee Collections',
+    'payment' => 'Payment',
+        'salary_setup'              => 'Salary Setup',
+        'salary_collections'        => 'Salary Collections',
+        'payment_targets'           => 'Targets',
+        'payment_collections'       => 'Collections',
+        'payment_summary'           => 'Summary',
+    'library' => 'Library',
+        'library_books_items'   => 'Books / Items',
+        'library_distributions' => 'Distributions',
+        'library_recycle_bin'   => 'Recycle Bin',
+    'messages' => 'Messages',
+        'messages_local_inbox'  => 'Local Inbox',   
+        'messages_trash'        => 'Trash',  
+        'messages_sms'          => 'SMS',  
+        'messages_email'        => 'Email',  
+        'messages_recharge'     => 'Recharge',  
+        'email_sms_history'     => 'History',  
+    'publications'  => 'Publications',  
+        'publications_articles'  => 'Articles',  
+            'publications_articles_editor'  => 'Editor',  
+            'publications_articles_list'  => 'Articles List',  
+            'publications_articles_trash'  => 'Trash',  
+        'publications_events'  => 'Events',  
+            'publications_events_editor'  => 'Editor',  
+            'publications_events_list'  => 'Event List',  
+            'publications_events_trash'  => 'Trash',  
+        'publications_notices'  => 'Notices',  
+            'publications_notices_editor'  => 'Editor',  
+            'publications_notices_list'  => 'Notice List',  
+            'publications_notices_trash'  => 'Trash',  
+    'gallery'  => 'Gallery',  
+        'gallery_uploader'      => 'Uploader',  
+        'gallery_images'        => 'Images',  
+        'gallery_other_files'   => 'Other Files',  
+        'image_optimizer'       => 'Image Optimizer',  
+        'gallery_trash'         => 'Trash',  
+    'settings'  => 'Settings',  
+        'settings_basic_info'  => 'Basic information',  
+        'settings_slider'   => 'Slider',  
+        'settings_themes'   => 'Themes',  
+        'settings_youtube'   => 'YouTube', 
+        'footer_links'      => 'Footer Links', 
+    'users'  => 'Users',  
+        'users_editor'      => 'Editor',  
+        'users_list_all'    => 'List All',  
+        'users_pending'     => 'Pending',  
+        'users_role_editor' => 'Role Editor',  
+    'career'  => 'Career',  
+        'career_circulars'      => 'Circulars List',  
+        'career_add_circular'   => 'Add circular',  
+        'career_applicants'     => 'Applicants List',  
+    'backup' => 'Backup',
+        'backup_export' => 'Export',
+        'backup_import' => 'Import',
+        'backup_history' => 'History',
+];

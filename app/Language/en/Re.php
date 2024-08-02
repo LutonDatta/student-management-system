@@ -1,0 +1,51 @@
+<?php
+
+/**
+ * Re - Return with redirect or display_message
+ * use these message here in return statement : ->with() 
+ */
+
+return [
+    'invalid_email_address'     => 'You have provide invalid email address ({0}).',
+    'invalid_mobile_number'     => 'You have provide invalid mobile number ({0}).',
+    'already_registered_email'  => 'This Email Address is already registered to this site ({0}).',
+    'already_registered_mobile' => 'This Mobile Number is already registered to this site ({0}).',
+    'retrieve_pass_to_get_access'   => 'Please click here to retrieve password to get access to this account.',
+    'wait_2_minutes_to_get_email'   => 'Please wait 2 minutes. Email may take 2 minutes to reach to your inbox.',
+    'wait_2_minutes_to_get_sms'     => 'Please wait 2 minutes. SMS may take 2 minutes to reach to your mobile.',
+    'failed_to_send_sms'            => 'Failed to send SMS.',
+    'failed_to_send_token_to_email' => 'Failed to send token to your email.',
+    'success_sent_token_to_email'   => 'SUCCESS: We have send you a token to your email address ({0}). Please check your email inbox.',
+    'please_try_again'              => 'Please try again',
+    'home_page'                     => 'Home Page',
+    'you_are_already_logged_in'     => 'You are already logged in. Go to {0} or {1} and come back again.',
+    'please_create_new_account'     => 'Please create new account.',
+    'account_with_this_email_not_found'     => 'Account not found. This email address ({0}) is not associated with any account.',
+    'account_with_this_mobile_not_found'    => 'Account not found. This mobile number ({0}) is not associated with any account.',
+    'check_form_n_set_info_correctly'       => 'Please check the form and set information correctly.',
+    'may_be_session_expired_get_new_reset_token' => 'May be session expired. Please try to collect new password reset token again. We can not change password because we are unable to detect your identity.',
+    'session_expired_get_new_reset_token'   => 'Session expired, please collect new password reset token.',
+    'invalid_password_reset_token'          => 'Invalid password reset token provided, please check your token and submit correct token.',
+    'failed_to_update_new_pass'             => 'Failed to update your new password.',
+    'pass_updated_successfully_use_new'     => 'Password has been updated successfully. Please login using your new password.',
+    'no_signup_token_exists'        => 'No signup token exists to our storage, may be your session expired.',
+    'get_new_signup_token'          => 'Please try to get new signup token.',
+    'invalid_signup_token_submitted'=> 'Invalid signup token. Token number that you have submitted is invalid.',
+    'invalid_mobile'                => 'Invalid mobile number.',
+    'invalid_email'                 => 'Invalid email address.',
+    'invalid_signup_expiration_data_found'  => 'Invalid signup expiration data found. Please try to get new token again.',
+    'this_signup_id_already_exists'         => 'This {0} is already exists to our database.',
+    'your_registration_failed_try_again'    => 'Your registration failed. Please try again.',
+    'registration_successful_use_new_pass'  => 'Registration successful! Please login using new password. Your new User ID is: <strong>{0}</strong> and password is: <strong>{1}</strong>',
+    'user_id_not_associate_with_any_ac'     => 'User ID that you have submitted (<strong>{0}</strong>) is not associated with any account.',
+    'invalid_input_check_carefully'         => 'Invalid input: User ID, Mobile number or Email address required. Please check carefully.',
+    'invalid_password_check_carefully'      => 'Invalid password provided, please check your password.',
+    'you_logged_in_successfully'            => 'You have logged in successfully.',
+    'magic_login_failed_try_password'       => 'Failed to login dynamically using magic password. Please login using your password.',
+    'invalid_user_id_provided'      => 'Invalid user ID provide.',
+    'invalid_login_key_provided'    => 'Invalid login key provided.',
+    'magic_login_key_expired'       => 'Login key expired.',
+    'no_job_circular_found_select_one'          => 'You have not selected a valid job circular. Please select a job circular from the list here.',
+    'message_sent_successfully'                 => 'Message sent successfully.',
+    'message_sent_successfully_get_notification'=> 'Success: Your message sent successfully. You will get notification soon.',
+];
