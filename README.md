@@ -32,6 +32,14 @@ it supports many languages. Note that, our software is built on CodeIgniter, so 
 language. There is no limitation. We don't have any separate localization guide, follow native CodeIgniter
 guide here [www.codeigniter.com](https://www.codeigniter.com/)
 
+# Demo And Live Site
+Please visit to see the live and demo site here [ultra-school.com](https://ultra-school.com/). 
+Sign up to join to our site, you can login and check some functionalities here. Default password
+is __abc@123#__ and email is __lutondatta@gmail.com__ for Student Management System (SSMS) and Student Management System SaaS for Business. 
+If you sign up using your own email and password, then use your own password. If you use our default
+email password you might see some unusual activities. Such as, you just have added an item, another person have deleted,
+because multiple person might use same password in a same time. 
+
 # Support: Premium Support Available
 Premium support available, for which you have to pay. Send eMail to LutonDatta@gmail.com get support or 
 comment from where you have purchased the software.
