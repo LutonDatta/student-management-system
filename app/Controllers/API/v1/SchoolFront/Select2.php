@@ -61,8 +61,8 @@ class Select2 extends ResourceController {
         $atPosition = strpos( $txt, '@'); // @ posision can not be 0, shoud be more then 2
         $dotPosision = strpos($txt,'.'); // posision of . should be more then $atposision because it is placed after @
         if( $atPosition > 0 ){
-            if( $dotPosision > $atPosition ) $bld->where('u_email', $txt ); // Full email (search exact email) - find single row
-            else $bld->like('u_email', $txt);   // NOt complete email (search likely emails) - many rows
+            if( $dotPosision > $atPosition ) $bld->where('users_u_email', $txt ); // Full email (search exact email) - find single row
+            else $bld->like('users_u_email', $txt);   // NOt complete email (search likely emails) - many rows
         }elseif( filter_var( $txt, FILTER_VALIDATE_INT )){
             if( strlen( $txt ) < 10 ){
                 $bld->where('student_u_id', $txt); /* It can be user ID */
