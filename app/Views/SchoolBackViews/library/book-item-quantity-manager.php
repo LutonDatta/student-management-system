@@ -57,7 +57,7 @@
                                                     <?php
                                                     $returned_by = intval($row->lq_returned_by);
                                                     if( $returned_by > 0 ){
-                                                        $usr = service('UserStudentsModel')->select(implode(',',['student_u_id','student_u_name_first','student_u_name_middle','student_u_name_last']))->find($returned_by);
+                                                        $usr = service('StudentsModel')->select(implode(',',['student_u_id','student_u_name_first','student_u_name_middle','student_u_name_last']))->find($returned_by);
                                                         if(is_object($usr)){
                                                             $name = trim($usr->student_u_name_first . ' ' . $usr->student_u_name_middle . ' ' . $usr->student_u_name_last);
                                                             if(strlen($name) < 1 ) $name = 'No name';
@@ -74,7 +74,7 @@
                                                     <?php
                                                     $returned_by = intval($row->lq_distributed_to);
                                                     if( $returned_by > 0 ){
-                                                        $usr = service('UserStudentsModel')->select(implode(',',['student_u_id','student_u_name_first','student_u_name_middle','student_u_name_last']))->find($returned_by);
+                                                        $usr = service('StudentsModel')->select(implode(',',['student_u_id','student_u_name_first','student_u_name_middle','student_u_name_last']))->find($returned_by);
                                                         if(is_object($usr)){
                                                             $name = trim($usr->student_u_name_first . ' ' . $usr->student_u_name_middle . ' ' . $usr->student_u_name_last);
                                                             if(strlen($name) < 1 ) $name = 'No name';
