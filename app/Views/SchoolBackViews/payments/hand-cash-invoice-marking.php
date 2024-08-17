@@ -96,10 +96,10 @@
                             <?php if(isset($hcRow) AND property_exists($hcRow, $tblCol) AND intval($hcRow->$tblCol) === 0) continue; ?>
                             <tr>
                                 <td>
-                                    <small>
+                                    <!--<small>-->
                                         <?=esc( ((int)array_search($tblCol, (array)array_keys($colRowItems)) +1) . '.');?>
                                         <?=esc($arVal['lbl']);?>
-                                    </small>
+                                    <!--</small>-->
                                 </td>
                                 <td><?=esc(esc($hcRow->$tblCol));?></td>
                             </tr>
