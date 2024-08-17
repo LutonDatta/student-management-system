@@ -124,7 +124,7 @@ class Cash_collection_on_hand extends BaseController {
         $mob_em_uid         = intval($this->request->getPost('mobile_email_uidx')); // Student UID
 
         if($mob_em_uid > 0){
-            $mappingRow = service('UserStudentsModel')->select('student_u_id')->find($mob_em_uid);
+            $mappingRow = service('StudentsModel')->select('student_u_id')->find($mob_em_uid);
             if(is_object($mappingRow)){
                 @session_start(); // Reverse session_write_close?
                 return redirect()->to(base_url("admin/pg/cash/in/hand/collection/create/inv?student_uid=$mappingRow->student_u_id"));

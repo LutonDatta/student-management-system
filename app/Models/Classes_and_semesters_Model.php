@@ -65,7 +65,9 @@ class Classes_and_semesters_Model extends Model{
                 LEFT JOIN $t AS t2 ON t3.fcs_parent = t2.fcs_id
                 LEFT JOIN $t AS t1 ON t2.fcs_parent = t1.fcs_id
                 ";
-        if($remove_parents) $sql .= " AND t.fcs_id NOT IN ( SELECT DISTINCT $t.fcs_parent FROM $t ) ";
+        if($remove_parents){
+            $sql .= " AND t.fcs_id NOT IN ( SELECT DISTINCT $t.fcs_parent FROM $t ) ";
+        }
         
         /**
          * Generally a school needs only 50 classes max and 200 max including parent items.
@@ -198,7 +200,9 @@ class Classes_and_semesters_Model extends Model{
                 ->withDeleted()
                 ->first();
         
-        if( ! is_object($cls)) return null; // If id is wrong, we have null value here
+        if( ! is_object($cls)){
+            return null; // If id is wrong, we have null value here
+        }
                     
             $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? $cls->title_5 . ' > ' : '';
             $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' > ' : '';
@@ -220,7 +224,9 @@ class Classes_and_semesters_Model extends Model{
      */    
     function is_this_class_id_can_be_parent( int $parent_class_id  ){
         
-        if( $parent_class_id < 1 ) return true; // zero '0' can be parent item. Root item has a parent ID 0 
+        if( $parent_class_id < 1 ){
+            return true; // zero '0' can be parent item. Root item has a parent ID 0 
+        }
         
         $t = $this->DBPrefix . 'classes_and_semesters';
         $sql =  "SELECT
@@ -250,7 +256,7 @@ class Classes_and_semesters_Model extends Model{
     }
 
     
-    public function get_class_list_with_parent_label_by_class_id_list( array $class_ids, bool $remove_sch_limitation = false  ){
+    public function get_class_list_with_parent_label_by_class_id_list( array $class_ids ){
         $selectCols = [
             "$this->table.fcs_id",
             "{$this->DBPrefix}{$this->table}.fcs_parent AS fcs_parent",
@@ -273,7 +279,9 @@ class Classes_and_semesters_Model extends Model{
                 
         $clsList = $clsListBuilder->withDeleted()->find();
         
-        if( ! is_array($clsList)) return null; // If id is wrong, we have null value here
+        if( ! is_array($clsList)){
+            return null; // If id is wrong, we have null value here
+        }
                  
         $classListNames = [];
         foreach($clsList as $cls){

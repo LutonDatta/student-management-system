@@ -95,11 +95,11 @@
                         <?php foreach($colRowItems as $tblCol => $arVal ): ?>
                             <tr>
                                 <td>
-                                    <small>
+                                    <!--<small>-->
                                         <?=esc( ((int)array_search($tblCol, (array)array_keys($colRowItems)) +1) . '.');?>
                                         <?=esc($arVal['lbl']);?>
                                         <?= isset($errors) ? get_form_error_msg_from_array($errors,$tblCol) : ''; ?>
-                                    </small>
+                                    <!--</small>-->
                                 </td>
                                 <td>
                                     <?php $valIpt = (isset($hcUpdateOldInvoice) && is_object($hcUpdateOldInvoice) AND property_exists($hcUpdateOldInvoice,$tblCol)) ? (intval($hcUpdateOldInvoice->$tblCol) > 0 ? intval($hcUpdateOldInvoice->$tblCol) : '') : set_value("frm_{$tblCol}");?>

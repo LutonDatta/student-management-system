@@ -46,7 +46,7 @@ class Academic_exam_results_delete extends BaseController {
                 ->withDeleted()
                 ->orderBy('exr_id DESC')
                 ->join('courses_classes_students_mapping',"exam_results.exr_scm_id = courses_classes_students_mapping.scm_id",'LEFT')
-                ->join('user_students',"user_students.student_u_id = courses_classes_students_mapping.scm_u_id",'LEFT')
+                ->join('students',"students.student_u_id = courses_classes_students_mapping.scm_u_id",'LEFT')
                 ->join('exam_date_time',"exam_results.exr_axdts_id = exam_date_time.axdts_id",'LEFT')
                 ->paginate(10);
         $data['ExamResultsPgr'] = service('ExamResultsModel')->pager->links();

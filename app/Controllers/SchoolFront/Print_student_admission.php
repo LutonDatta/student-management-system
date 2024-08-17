@@ -21,7 +21,7 @@ class Print_student_admission extends BaseController {
         
         $user_id   = intval($this->request->getGet('user_id')); /* Print information of this user */
         
-        $student_info = service('UserStudentsModel')->find($user_id);
+        $student_info = service('StudentsModel')->find($user_id);
         if( ! is_object($student_info)){
             return view('err/general-error', [
                     'error_title'   => 'Invalid ID error',

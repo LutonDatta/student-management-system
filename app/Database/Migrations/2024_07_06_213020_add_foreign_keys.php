@@ -23,7 +23,7 @@ class Migration_add_foreign_keys extends \CodeIgniter\Database\Migration {
             [ 'courses_classes_mapping',    'ccm_class_id',         'classes_and_semesters','fcs_id',   'RESTRICT', 'CASCADE'],
             [ 'courses_classes_mapping',    'ccm_course_id',        'courses',              'co_id',    'RESTRICT', 'CASCADE'],
             
-            [ 'courses_classes_students_mapping',   'scm_u_id',         'user_students',                'student_u_id',     'RESTRICT', 'CASCADE'],
+            [ 'courses_classes_students_mapping',   'scm_u_id',         'students',                'student_u_id',     'RESTRICT', 'CASCADE'],
             [ 'courses_classes_students_mapping',   'scm_class_id',     'classes_and_semesters', 'fcs_id',  'RESTRICT', 'CASCADE'],
             [ 'courses_classes_students_mapping',   'scm_course_1',     'courses',      'co_id',  'RESTRICT', 'CASCADE'],
             [ 'courses_classes_students_mapping',   'scm_course_2',     'courses',      'co_id',  'RESTRICT', 'CASCADE'],
@@ -47,8 +47,8 @@ class Migration_add_foreign_keys extends \CodeIgniter\Database\Migration {
             [ 'courses_classes_students_mapping',   'scm_course_op_5',     'courses',      'co_id',  'RESTRICT', 'CASCADE'],
                         
             [ 'library_items_quantities',   'lq_bk_id',             'library_items',    'bk_id', 'CASCADE', 'CASCADE'], /* Remove quantities along with libray books */
-            [ 'library_items_quantities',   'lq_distributed_to',    'user_students',    'student_u_id', 'RESTRICT', 'CASCADE'],
-            [ 'library_items_quantities',   'lq_returned_by',       'user_students',    'student_u_id', 'RESTRICT', 'CASCADE'],
+            [ 'library_items_quantities',   'lq_distributed_to',    'students',    'student_u_id', 'RESTRICT', 'CASCADE'],
+            [ 'library_items_quantities',   'lq_returned_by',       'students',    'student_u_id', 'RESTRICT', 'CASCADE'],
                                                 
             [ 'daily_attendance_book', 'dab_scm_id',     'courses_classes_students_mapping', 'scm_id', 'CASCADE', 'CASCADE'], // Delete/update with parent row
             [ 'daily_attendance_book', 'dab_course_id',  'courses', 'co_id', 'CASCADE', 'CASCADE'], // Delete/update with parent row

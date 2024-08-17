@@ -82,7 +82,7 @@ class Exam_results_viewer extends BaseController {
         $teacherStudentIds = array_unique($teacherStudentIds);// If same person update, one id will be found in many rows
         $data['teacherStudentNameList'] = [];
         if(count($teacherStudentIds) > 0){
-            $tList = service('UserStudentsModel')->select('student_u_id,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last')->find($teacherStudentIds);
+            $tList = service('StudentsModel')->select('student_u_id,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last')->find($teacherStudentIds);
             foreach($tList as $aStd){ $data['teacherStudentNameList'][$aStd->student_u_id] = implode(' ', array_filter([get_name_initials($aStd->student_u_name_initial),$aStd->student_u_name_first,$aStd->student_u_name_middle,$aStd->student_u_name_last ])); }
         }
         

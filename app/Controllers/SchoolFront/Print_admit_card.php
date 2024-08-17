@@ -29,7 +29,7 @@ class Print_admit_card extends BaseController {
         $apply_to_class_id      = intval($this->request->getGet('apply_to_class_id')); /* Admit card of this Admission Opening */
         
         
-        $data['udr'] = service('UserStudentsModel')->find($user_id);
+        $data['udr'] = service('StudentsModel')->find($user_id);
         
         
         $data['adOpenings']     = service('ClassesAndSemestersModel')->paginate(20, 'print_view_ao');

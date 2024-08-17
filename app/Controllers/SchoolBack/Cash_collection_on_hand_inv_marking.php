@@ -52,7 +52,7 @@ class Cash_collection_on_hand_inv_marking extends BaseController {
 
         $classData = service('ClassesAndSemestersModel')->withDeleted()->get_single_class_with_parent_label(intval($associatedClass->fcs_id));
         
-        $data['studentRow'] = service('UserStudentsModel')->find(intval($associatedClass->scm_u_id));
+        $data['studentRow'] = service('StudentsModel')->find(intval($associatedClass->scm_u_id));
         $data['hcRow']      = $hcRow;
         $data['clsData']    = (object) array_merge( (array) $associatedClass, (array) $classData );
                        

@@ -1,7 +1,7 @@
 
      
         </div>
-        <div class="footer <?=(isset($pageTitleHideOnPrint) AND $pageTitleHideOnPrint) ? 'd-print-none' : ''; ?>" >
+        <div class="footer d-print-none" >
             <?php service('ShowLinksLibrary')->show_links_on_mobile_devices(isset($loadedPage) ? $loadedPage : (isset($showingPage) ? $showingPage : '')); ?>
                 
             

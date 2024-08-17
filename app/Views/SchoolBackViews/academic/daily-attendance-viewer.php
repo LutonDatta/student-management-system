@@ -22,7 +22,7 @@
                     <?= isMobile() ? '</div><div class="input-group-prepend">' : ''; ?>
                         <input type="text" id="atViFilter_v_year" class="form-control form-control-sm date" data-provide="datepicker" data-date-format="yyyy" data-date-autoclose="true" data-date-min-view-mode="2" placeholder="Year" <?=tt_title('Year');?>>
                         <a href="<?=base_url('daily/attendance/book/view');?>" class="btn btn-info d-print-none">Clear</a>
-                    </div>                    
+                    </div>                   
                 </div>
                 <div class="text-center">
                     <span class="d-none d-print-inline">Printed at: <?=date('jS M Y h:i:s a O');?></span>
@@ -158,5 +158,10 @@
         border: 1px solid gray;
         padding: 10px;
         font-size: 110%;
+    }
+    @media print{
+        .dataTables_length, .dataTables_paginate{
+            display: none;
+        }
     }
 </style>

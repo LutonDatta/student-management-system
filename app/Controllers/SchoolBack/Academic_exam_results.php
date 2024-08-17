@@ -51,7 +51,7 @@ class Academic_exam_results extends BaseController {
         if(is_object($data['Selted_xmDtTm']) AND is_object($data['Selted_class']) AND is_object($data['selted_course'])){
             $data['available_students'] = service('CoursesClassesStudentsMappingModel')
                     ->withDeleted()
-                    ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
+                    ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
                     ->select('scm_deleted_at,scm_id,scm_u_id,scm_c_roll,scm_status,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last')
                     ->where('scm_session_year', $data['Selted_xmDtTm']->axdts_session_year)
                     ->where('scm_class_id', $data['Selted_class']->fcs_id)

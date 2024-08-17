@@ -50,7 +50,7 @@ class Admission_automation extends BaseController {
                                         'scm_session_year'  => $data['studentsFrom']['from_year'],
                                         'scm_status'        => $data['studentsFrom']['from_status'],
                                     ))
-                                    ->join('user_students',"scm_u_id = user_students.student_u_id",'LEFT')
+                                    ->join('students',"scm_u_id = students.student_u_id",'LEFT')
                                     ->paginate(15,'students');
         $data['students_pgr']   = service('CoursesClassesStudentsMappingModel')->pager->links('students');
         

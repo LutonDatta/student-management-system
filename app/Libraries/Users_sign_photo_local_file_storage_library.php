@@ -185,7 +185,7 @@ class Users_sign_photo_local_file_storage_library{
 //        $defaultImage->width    = 300;
 //        $defaultImage->height   = 300;
                         
-        $user = service('UserStudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
+        $user = service('StudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
         if( !is_object($user)) { return $this->generateResponse($defaultImage); }
         $att = service('AttachmentsSignModel')->find(intval($user->u_sign_photo_id));
         if( ! is_object($att) ) {return $this->generateResponse($defaultImage); }
@@ -211,7 +211,7 @@ class Users_sign_photo_local_file_storage_library{
      * @return void
      */
     protected function previewAction(){
-        $user = service('UserStudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
+        $user = service('StudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
         if( !is_object($user)) { return $this->generateResponse(['error'=>'Invalid User ID.']); }
         $att = service('AttachmentsSignModel')->find(intval($user->u_sign_photo_id));
         if( ! is_object($att) ) {return $this->generateResponse(['error'=>'No avatar found. Please upload.']); }                 
@@ -255,7 +255,7 @@ class Users_sign_photo_local_file_storage_library{
      */
     protected function handleFileUpload($uploaded_file, $name, $size, $error){
         // Save image as attachment and record as avatar to the database
-        $user = service('UserStudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
+        $user = service('StudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
         if( !is_object($user)) { 
              // User ID must exists as we already verified user. User might enter wrong user id
             return ['error'=>'Working user ID not found error.'];
@@ -319,7 +319,7 @@ class Users_sign_photo_local_file_storage_library{
         if( ! is_object($att) ){ 
             /* Update row if there is a new ID. That means update only at the first time. Because we will not change attachment ID.
              * We will just update image in the same ID. */
-            service('UserStudentsModel')->update(service('AuthLibrary')->getLoggedInUserID(),['u_sign_photo_id'=>$this->upload_attachment_id]);
+            service('StudentsModel')->update(service('AuthLibrary')->getLoggedInUserID(),['u_sign_photo_id'=>$this->upload_attachment_id]);
         }
         
         unset($image->path);
@@ -332,7 +332,7 @@ class Users_sign_photo_local_file_storage_library{
      * @return void
      */
     protected function cropAction(){
-        $user = service('UserStudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
+        $user = service('StudentsModel')->select('u_sign_photo_id')->find(service('AuthLibrary')->getLoggedInUserID());
         if( !is_object($user)) { return $this->generateResponse(['error'=>'Invalid User ID.']); }
         $att = service('AttachmentsSignModel')->find(intval($user->u_sign_photo_id));
         if( ! is_object($att) ) {return $this->generateResponse(['error'=>'No avatar found. Please upload.']); }

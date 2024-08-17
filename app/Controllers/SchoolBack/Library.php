@@ -210,7 +210,7 @@ class Library extends BaseController {
         $user = intval($this->request->getGet('to'));           // User ID
         
         if($user > 0){
-            $usr = service('UserStudentsModel')->find($user);
+            $usr = service('StudentsModel')->find($user);
             if( is_object( $usr ) ){
                 $obj = new \stdClass();
                 $obj->id = $usr->student_u_id;
@@ -243,7 +243,7 @@ class Library extends BaseController {
             $vers = intval($this->request->getPost('selectBkVersion'));
             $user = intval($this->request->getPost('selectToUser'));
             if( $user > 0 AND $vers > 0 ){
-                $user_obj   = service('UserStudentsModel')->find($user);
+                $user_obj   = service('StudentsModel')->find($user);
                 $present    = service('LibraryItemsQuantitiesModel')->find( $vers );
                 if(is_object($present) AND is_object($user_obj)){
                     if($present->lq_is_distributed){
