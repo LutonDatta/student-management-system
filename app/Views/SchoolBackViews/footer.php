@@ -9,7 +9,7 @@
         <script src="<?=cdn_url().'select2-4.0.13/dist/js/select2.min.js';?>"></script>
         <script src="<?=cdn_url('select2-4.0.13/dist/js/i18n/bn.js');?>"></script>
                 
-        <script src="<?=cdn_url().'bs-custom-file-input.min.js';?>" defer="defer"></script>
+        <script src="<?=cdn_url().'bs-custom-file-input/dist/bs-custom-file-input.min.js';?>" defer="defer"></script>
         <script {csp-script-nonce}>$(function(){$('[data-toggle="tooltip"]').tooltip();});</script>
         <script src="<?=cdn_url().'jquery-ui-1.12.1.custom/jquery-ui.min.js';?>" defer="defer"></script>
         
