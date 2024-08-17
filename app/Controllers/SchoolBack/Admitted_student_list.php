@@ -54,7 +54,7 @@ class Admitted_student_list extends BaseController {
                     'scm_class_id','scm_session_year','scm_status',
                 ]))
                 ->orderBy('scm_id','DESC')
-                ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','left');
+                ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','left');
         
         
         if(strlen($data['srcData']['status']) > 0 ){

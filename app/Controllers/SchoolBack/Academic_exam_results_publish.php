@@ -26,7 +26,7 @@ class Academic_exam_results_publish extends BaseController {
         $sessYr = urldecode($this->request->getPostGet('result_pub_std_sess'));
         
         $data['studentSCM'] = service('CoursesClassesStudentsMappingModel')
-                ->join('user_students','user_students.student_u_id = scm_u_id','LEFT')
+                ->join('students','students.student_u_id = scm_u_id','LEFT')
                 ->withDeleted()->find($scm_id);
         if(! is_object($data['studentSCM'])){
             $cls = service('CoursesClassesMappingModel')->select('ccm_class_id,ccm_year_session')

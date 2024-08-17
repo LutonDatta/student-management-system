@@ -22,7 +22,7 @@ class Print_info extends BaseController {
         
         $user_id   = intval($this->request->getGet('user_id')); /* Print information of this user */
         
-        $student_info = service('UserStudentsModel')->limit(1)->withDeleted()->find($user_id);
+        $student_info = service('StudentsModel')->limit(1)->withDeleted()->find($user_id);
         if( ! is_object($student_info)){
             return view('err/general-error', [
                     'error_title'   => 'Invalid ID error',
@@ -45,7 +45,7 @@ class Print_info extends BaseController {
             $data['classCoursesMan']= service('CoursesModel')->get_courses_by_class_id( $classTo->fcs_id, true ); // Mandatory courses
             $data['classCoursesOpt']= service('CoursesModel')->get_courses_by_class_id( $classTo->fcs_id, false ); // Optional courses
             $data['classApplication'] = service('CoursesClassesStudentsMappingModel')
-                        ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
+                        ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
                         //->withDeleted() // Trigger groupBy error
                         ->where([ 
                             'scm_u_id'          => $student_info->student_u_id, 

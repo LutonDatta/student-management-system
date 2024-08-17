@@ -57,7 +57,7 @@ class Dashboard_statistics_info extends ResourceController {
     
     public function total_total_student_count(){
         session_write_close(); // We no longer need session. Close session and allow next request load data faster.
-        $count =  service('UserStudentsModel')->countAllResults();
+        $count =  service('StudentsModel')->countAllResults();
         return $this->respond(['count' => number_format($count)]);
     } // EOM
     

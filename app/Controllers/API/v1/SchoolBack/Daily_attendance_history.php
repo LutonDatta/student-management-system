@@ -65,7 +65,7 @@ class Daily_attendance_history extends ResourceController {
                     'co_title,co_code','fcs_title'
                 ]))
                 ->join('courses_classes_students_mapping',"$t_dab.dab_scm_id = courses_classes_students_mapping.scm_id",'LEFT')
-                ->join('user_students',"user_students.student_u_id = courses_classes_students_mapping.scm_u_id",'LEFT')
+                ->join('students',"students.student_u_id = courses_classes_students_mapping.scm_u_id",'LEFT')
                 ->join('courses',"$t_dab.dab_course_id = courses.co_id",'LEFT')
                 ->join('classes_and_semesters',"courses_classes_students_mapping.scm_class_id = classes_and_semesters.fcs_id",'LEFT')
                 ->withDeleted();
