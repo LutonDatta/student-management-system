@@ -50,7 +50,7 @@
                     <div class="spinner-border text-success d-none" role="status"><span class="sr-only">Loading...</span></div>
                     <div type="button"><i class="fas fa-cloud-download-alt"></i></div>
                 </h1>
-                <h3 class="font-bold no-margins">Class Segments</h3>
+                <h3 class="font-bold no-margins">Classes and Faculties</h3>
                 <small>Total number of classes added.</small>
             </div>
         </div>
@@ -64,7 +64,7 @@
                     <div class="spinner-border text-success d-none" role="status"><span class="sr-only">Loading...</span></div>
                     <div type="button"><i class="fas fa-cloud-download-alt"></i></div>
                 </h1>
-                <h3 class="font-bold no-margins"><?=lang('Menu.courses');?></h3>
+                <h3 class="font-bold no-margins"><?=lang('Menu.courses');?>/Subjects</h3>
                 <small>Total number of courses/subjects added.</small>
             </div>
         </div>
