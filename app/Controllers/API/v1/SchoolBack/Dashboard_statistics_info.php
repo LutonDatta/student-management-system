@@ -41,8 +41,12 @@ class Dashboard_statistics_info extends ResourceController {
     
     public function total_classes_count(){
         session_write_close(); // We no longer need session. Close session and allow next request load data faster.
-        $count = service('ClassesAndSemestersModel')->countAllResults();
-        return $this->respond(['count' => number_format($count)]);
+        
+        $t      = service('ClassesAndSemestersModel')->getTableName(true);
+        $sql    = "SELECT COUNT( $t.fcs_id ) AS CTX FROM $t WHERE {$t}.fcs_id NOT IN ( SELECT {$t}.fcs_parent FROM $t WHERE {$t}.fcs_parent IS NOT NULL )";       
+        $num    = service('ClassesAndSemestersModel')->query($sql)->getRow();
+        
+        return $this->respond(['count' => number_format($num->CTX)]);
     } // EOM
     
     public function total_courses_count(){
@@ -53,7 +57,7 @@ class Dashboard_statistics_info extends ResourceController {
     
     public function total_total_student_count(){
         session_write_close(); // We no longer need session. Close session and allow next request load data faster.
-        $count =  service('UserStudentsModel')->countAllResults();
+        $count =  service('StudentsModel')->countAllResults();
         return $this->respond(['count' => number_format($count)]);
     } // EOM
     

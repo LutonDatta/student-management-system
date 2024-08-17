@@ -10,7 +10,7 @@
  * @filesource
  */
 
-class Migration_add_user_students_table extends \CodeIgniter\Database\Migration {
+class Migration_add_students_table extends \CodeIgniter\Database\Migration {
 
     
     public function up(){    
@@ -51,7 +51,7 @@ class Migration_add_user_students_table extends \CodeIgniter\Database\Migration 
         $this->forge->addKey('student_u_deleted_at');
         $this->forge->addKey('student_u_updated_at');
         $this->forge->addKey('student_u_inserted_at');
-        $this->forge->createTable('user_students', TRUE, ['ENGINE' => 'InnoDB']);
+        $this->forge->createTable('students', TRUE, ['ENGINE' => 'InnoDB', 'COMMENT' => 'Teachers edit these students records from students admission page.']);
         
         
         $this->db->enableForeignKeyChecks();

@@ -89,7 +89,7 @@ class Daily_attendance extends ResourceController {
                     // Attendance can be changed until date changes. Means only attendance can be changed today.
                     "$ta.dab_class_date='" . date('Y-m-d') . "'" // Change it to take advance/delay attendance
                 ]),'LEFT')
-                ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
+                ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
                 ->select(implode(',',[
                     'scm_id',
                     'scm_class_id','scm_session_year','scm_c_roll','scm_u_id',

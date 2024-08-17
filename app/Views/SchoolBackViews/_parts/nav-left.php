@@ -139,7 +139,7 @@
                         array(
                             'active'    => in_array($loadedPage,['cash_in_hand_collections']) ? 'active' : '',
                             'url'       => base_url('admin/pg/cash/in/hand/collection'),
-                            'menuLabel' => myLang('Cash In Hand Collection','হাতে নগদ সংগ্রহ'),
+                            'menuLabel' => myLang('Hand Cash Collection','হাতে নগদ সংগ্রহ'),
                         ),
                     ]
                 ),

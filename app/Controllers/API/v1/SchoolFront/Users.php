@@ -25,7 +25,7 @@ class Users extends ResourceController {
         session_write_close(); // We no longer need session. Close session and allow next request load data faster.
         
         $txt        = trim($this->request->getPost('inputTxt')); // User input might be email/name/NID/birthID/montherName/fatherName etc
-        $builder    = service('UserStudentsModel')->select('student_u_id,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last,student_u_father_name,student_u_mother_name');        
+        $builder    = service('StudentsModel')->select('student_u_id,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last,student_u_father_name,student_u_mother_name');        
         if( filter_var( $txt, FILTER_VALIDATE_EMAIL ) ){
             $builder->where('student_u_email_own', $txt );              /* User full email */
         }elseif( filter_var( $txt, FILTER_VALIDATE_INT )){

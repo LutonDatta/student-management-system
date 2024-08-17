@@ -23,7 +23,7 @@ class Cash_collection_on_hand_inv extends BaseController {
         
         
         
-        $studentRow = service('UserStudentsModel')
+        $studentRow = service('StudentsModel')
                 ->select('student_u_id,student_u_mobile_own,student_u_mobile_father,student_u_mobile_mother,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last,student_u_father_name,student_u_mother_name,student_u_addr_country,student_u_addr_state,student_u_addr_district,student_u_addr_thana,student_u_addr_post_office,student_u_addr_zip_code,student_u_addr_village,student_u_addr_road_house_no')
                 ->find(intval($this->request->getGet('student_uid')));
         if( ! is_object($studentRow)){

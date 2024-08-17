@@ -2,8 +2,8 @@
 
 use CodeIgniter\Model;
 
-class User_students_Model extends Model{
-    protected $table            = 'user_students';
+class Students_Model extends Model{
+    protected $table            = 'students';
     protected $primaryKey       = 'student_u_id';
     
     protected $returnType       = 'object';

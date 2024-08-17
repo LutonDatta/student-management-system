@@ -26,13 +26,13 @@ class Academic_exam_results_view_own extends BaseController {
         // We must have SCM ID to find the student to process exam results for.
         $scm_id = intval($this->request->getPostGet('marksheet_own_view_scm_id'));
         $data['studentSCM'] = service('CoursesClassesStudentsMappingModel')
-                ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
+                ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
                 ->withDeleted()->find($scm_id);
         if( ! is_object($data['studentSCM'])){
             if( is_array($data['studentAllSCMList']) AND (count($data['studentAllSCMList']) > 0) ){
                 // If no SCMID not found in get request, find a default SCM row
                 $data['studentSCM'] = service('CoursesClassesStudentsMappingModel')
-                        ->join('user_students','user_students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
+                        ->join('students','students.student_u_id = courses_classes_students_mapping.scm_u_id','LEFT')
                         ->withDeleted()->find($data['studentAllSCMList'][0]->scm_id);
             }
         }

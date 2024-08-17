@@ -19,7 +19,7 @@ class Admission_edit_application extends BaseController {
         $data['pageTitle']          = 'Student Admission';
         $data['loadedPage']         = 'edit_application';
         
-        $data['updating_student']   = service('UserStudentsModel')->withDeleted()->find(intval($this->request->getPostGet('student_id')));
+        $data['updating_student']   = service('StudentsModel')->withDeleted()->find(intval($this->request->getPostGet('student_id')));
         
         // CAUTON: Some person admin/teacher do not go to apply to classes. But want to update personal info. So allow them
         $saveUserData = $this->save_submitted_profile_information_basic_info($data['updating_student']);
@@ -65,11 +65,11 @@ class Admission_edit_application extends BaseController {
             $data = $this->load_necessary_data_for_courses_selector_page($data, $data['selectedClass'], $data['selectedSession']);
         }
                 
-        $data['inAdStuList'] = service('UserStudentsModel')
+        $data['inAdStuList'] = service('StudentsModel')
                 ->select('student_u_id,student_u_name_initial,student_u_name_first,student_u_name_middle,student_u_name_last,student_u_father_name,student_u_date_of_birth,student_u_gender,student_u_religion')
                 ->whereNotIn("student_u_id", function($b){ return $b->select("courses_classes_students_mapping.scm_u_id")->from('courses_classes_students_mapping');})
                 ->paginate(15,'inCompleteAdmission');
-        $data['inAdStuListPgr'] = service('UserStudentsModel')->pager->links('inCompleteAdmission');
+        $data['inAdStuListPgr'] = service('StudentsModel')->pager->links('inCompleteAdmission');
                 
         echo view('SchoolBackViews/head', $data);
         echo view('SchoolBackViews/_parts/nav-left', $data);
@@ -94,7 +94,7 @@ class Admission_edit_application extends BaseController {
         if($uid < 1 ){
             @session_start(); return redirect()->to(base_url('admin/admission/edit/application/by/admin'))->with('display_msg', get_display_msg('Invalid user ID.','danger'));
         }
-        $del = service('UserStudentsModel')->delete($uid,true);
+        $del = service('StudentsModel')->delete($uid,true);
         if($del){
             @session_start(); return redirect()->to(base_url('admin/admission/edit/application/by/admin'))->with('display_msg', get_display_msg('Unnecessary data removed successfully.','success'));
         }else{
@@ -243,17 +243,17 @@ class Admission_edit_application extends BaseController {
             'student_u_date_of_birth'   => date('Y-m-d H:i:s', strtotime( $this->request->getPost('dofb') ) ),
         ];
         if( $user_id > 0 ){
-            if( ! service('UserStudentsModel')->update($user_id, $save_data )){
-                $dbErros = (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->update($user_id, $save_data )){
+                $dbErros = (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'=> get_display_msg('Failed to update information. ' . implode(', ',$dbErros),'danger')];
             }
         }else{
-            if( ! service('UserStudentsModel')->insert($save_data)){
-                $dbErros = (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->insert($save_data)){
+                $dbErros = (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'=> get_display_msg('Failed to insert information. ' . implode(', ',$dbErros),'danger')];
             }
             // We have found new userID, Caution: next processing will be depend on it.
-            $user_id = service('UserStudentsModel')->insertID(); // Added to redirect url, to update next information to this row.
+            $user_id = service('StudentsModel')->insertID(); // Added to redirect url, to update next information to this row.
         }
         @session_start(); // Reverse session_write_close?
         return redirect()
@@ -277,17 +277,17 @@ class Admission_edit_application extends BaseController {
             'student_u_addr_road_house_no'  => $this->request->getPost('road_house'),
         ];
         if( $user_id > 0 ){
-            if( ! service('UserStudentsModel')->update($user_id, $save_data )){
-                $dbErros = (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->update($user_id, $save_data )){
+                $dbErros = (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'   => get_display_msg('Failed to update user information. ' . implode(', ', $dbErros ),'danger') ];
             }
         }else{
-            if( ! service('UserStudentsModel')->insert($save_data)){
-                $dbErros = (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->insert($save_data)){
+                $dbErros = (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'=> get_display_msg('Failed to insert information. ' . implode(', ',$dbErros),'danger')];
             }
             // We have found new userID, Caution: next/previous page update will be depend on it.
-            $user_id = service('UserStudentsModel')->insertID(); // Added to redirect url, to update next/previous page info to this row.
+            $user_id = service('StudentsModel')->insertID(); // Added to redirect url, to update next/previous page info to this row.
         }
         
         @session_start(); // Reverse session_write_close?
@@ -311,17 +311,17 @@ class Admission_edit_application extends BaseController {
         ];
         
         if( $user_id > 0 ){
-            if( ! service('UserStudentsModel')->update($user_id, $save_data )){
-                $dbErros =  (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->update($user_id, $save_data )){
+                $dbErros =  (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'   => get_display_msg('Failed to update user information. ' . implode(', ', $dbErros ),'danger') ];
             }
         }else{
-            if( ! service('UserStudentsModel')->insert($save_data)){
-                $dbErros = (array) service('UserStudentsModel')->errors();
+            if( ! service('StudentsModel')->insert($save_data)){
+                $dbErros = (array) service('StudentsModel')->errors();
                 return [ 'errors' => $dbErros, 'display_msg'=> get_display_msg('Failed to insert contact information. ' . implode(', ',$dbErros),'danger')];
             }
             // We have found new userID, Caution: next/previous page update will be depend on it.
-            $user_id = service('UserStudentsModel')->insertID(); // Added to redirect url, to update next/previous page info to this row.
+            $user_id = service('StudentsModel')->insertID(); // Added to redirect url, to update next/previous page info to this row.
         }
         
         @session_start(); // Reverse session_write_close to show display message.

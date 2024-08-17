@@ -51,9 +51,9 @@ class Services extends CoreServices
     } /* EOM */
     
     
-    public static function UserStudentsModel($getShared = true){
-        if (! $getShared) return new \App\Models\User_students_Model();
-        return static::getSharedInstance('UserStudentsModel');
+    public static function StudentsModel($getShared = true){
+        if (! $getShared) return new \App\Models\Students_Model();
+        return static::getSharedInstance('StudentsModel');
     } /* EOM */
     
     public static function HandCashCollectionsModel($getShared = true){
