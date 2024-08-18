@@ -44,7 +44,7 @@
                         array(
                             'active'    => in_array($loadedPage,['academic_course']) ? 'active' : '',
                             'url'       => base_url('admin/academic/course'),
-                            'menuLabel' => lang('Admin_menu.academic_courses'),
+                            'menuLabel' => 'Courses / Subjects',
                         ),
                         array(
                             'active'    => in_array($loadedPage,['academic_course_dist']) ? 'active' : '',
