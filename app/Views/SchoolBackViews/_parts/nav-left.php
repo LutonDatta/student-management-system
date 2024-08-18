@@ -108,14 +108,14 @@
                 array(
                     'active'    => in_array($loadedPage,['admission_setup','admission_applications','edit_application','step_up_down','student_list_x','personal_info','personal_photo','admission_course_selector']) ? 'active' : '',
                     'areaExp'   => in_array($loadedPage,['admission_setup','admission_applications','edit_application','step_up_down','student_list_x','personal_info','personal_photo','admission_course_selector']) ? 'true' : 'false',
-                    'menuLabel' => myLang('Student Admission','শিক্ষার্থী ভর্তি'),
+                    'menuLabel' => 'Student',
                     'icon'      => 'fas fa-user-graduate',
                     'counter'   => '<i class="fa arrow"></i>',
                     'subItems'  => [
                         array(
                             'active'    => in_array($loadedPage,['edit_application']) ? 'active' : '',
                             'url'       => base_url('admin/admission/edit/application/by/admin'),
-                            'menuLabel' => myLang('Admission Editor','ভর্তি সম্পাদনা'),
+                            'menuLabel' => 'Admission',
                         ),
                         array(
                             'active'    => in_array($loadedPage,['student_list_x']) ? 'active' : '',
@@ -125,7 +125,7 @@
                         array(
                             'active'    => in_array($loadedPage,['step_up_down']) ? 'active' : '',
                             'url'       => base_url('admin/admission/step/up/down'),
-                            'menuLabel' => lang('Admin_menu.admission_step_up_down'),
+                            'menuLabel' => 'Up/Downgrade (Pass/Fail)',
                         )
                     ]
                 ),
