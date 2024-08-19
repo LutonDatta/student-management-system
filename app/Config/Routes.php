@@ -91,6 +91,11 @@ $routes->group('admin',['namespace' => 'App\Controllers\SchoolBack', 'filter' =>
             $routes->match(['get','post'], 'exam/results/viewer',   'Exam_results_viewer::show_exam_results'); 
             $routes->match(['get','post'], 'exam/date/time/viewer', 'Exam_date_time_viewer::show_exam_date_time_to_students'); 
     });
+    
+    $routes->group('hostel', function($routes){
+        $routes->match(['get','post'], 'rooms', 'Hostel::rooms_setup'); 
+    });
+    
     $routes->group('admission', function($routes){
             $routes->match(['get','post'], 'bulk/action',               'Bulk_action::admission_bulk_actions');
             $routes->match(['get','post'], 'edit/application/by/admin', 'Admission_edit_application::edit_admission_application');
