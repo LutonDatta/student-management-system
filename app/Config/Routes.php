@@ -125,6 +125,7 @@ $routes->group('admin',['namespace' => 'App\Controllers\SchoolBack', 'filter' =>
 $routes->group('api/v1', ['namespace' => 'App\Controllers\API\v1\SchoolFront', 'filter' => 'auth'], function($routes){
     $routes->match(['get','post'],  'users',                'Users::render_users');         // Renders list of users, generally search users by id or other user data
     $routes->match(['get','post'],  'classes',              'Academic::render_classes');   // Renders list of classes of root, or sub classes under parent class if parent id provide
+    $routes->match(['get','post'],  'hostels',              'Hostel::render_rooms');   // Renders list of hostel rooms in jstree
     $routes->match(['get','post'],  'courses',              'Courses::render_courses');   // Pbulicly Renders list of courses
     $routes->match(['get','post'],  'viewable/sessions/yrs','Sessions_years::render_sessions_years');   // Publicly Renders list of available sessions/years
     $routes->post(                  'select2/view/books',   'Library::view_public_book_data');   
