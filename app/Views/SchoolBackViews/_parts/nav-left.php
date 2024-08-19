@@ -179,7 +179,7 @@
                         ),array(
                             'active'    => in_array($loadedPage,['hostel_bed_ditribution']) ? 'active' : '',
                             'url'       => base_url('admin/hostel/bed/distribution'),
-                            'menuLabel' => 'Bed / Sit Distribution',
+                            'menuLabel' => 'Bed / Seat Distribution',
                         ),array(
                             'active'    => in_array($loadedPage,['hostel_report']) ? 'active' : '',
                             'url'       => base_url('admin/hostel/report'),
