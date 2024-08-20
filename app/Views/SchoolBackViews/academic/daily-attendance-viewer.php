@@ -32,7 +32,7 @@
                 <div class="<?=isMobile() ? 'table-responsive' : 'table-responsive-not'; ?>">
                     <table class="display" id="mainAttendanceViewerTable">
                         <?php $hRow =   '<tr>
-                                            <th>UID</th>
+                                            <th>SID</th>
                                             <th>Thumb</th>
                                             <th>Name</th>
                                             <th title="Class Roll">Roll</th>

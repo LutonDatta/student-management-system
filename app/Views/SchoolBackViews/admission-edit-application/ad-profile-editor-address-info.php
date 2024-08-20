@@ -23,7 +23,7 @@
         <div class="mail-box-header">
             <h3>
                 <?=lang('Sa.edit_address_info');?>
-                <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(UID: $uid)"; } ?>
+                <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(SID: $uid)"; } ?>
             </h3>
         </div>
         <div class="mail-box">

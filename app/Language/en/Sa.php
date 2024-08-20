@@ -106,7 +106,7 @@ return [
     'your'                      => 'Your',
     'payment_for'               => 'Payment For',
     'find_payable_amount'       => 'Find Payable Amount',
-    'payment_for_desc'          => 'Are you making payment for yourself? Enter your UID here. Parents or guardians can pay for their children. Please select for which person your are making this payment.',
+    'payment_for_desc'          => 'Are you making payment for yourself? Enter your SID here. Parents or guardians can pay for their children. Please select for which person your are making this payment.',
     'definite'                      => 'Definite',
     'customized_payment'        => 'Custom Payment',
     'customized_payment_form'   => 'Custom Payment Form',

@@ -41,7 +41,7 @@
                             <tr><td class="p-0">Session/Year:</td><td class="p-0"><?=esc($studentSCM->scm_session_year);?></td></tr>
                             <tr><td class="p-0">Status:</td><td class="p-0"><?= esc( get_student_class_status()[$studentSCM->scm_status] );?></td></tr>
                             
-                            <tr><td class="p-0 text-center" colspan="5">UID: <?=esc($studentSCM->scm_u_id);?>, SCM ID: <?=esc($studentSCM->scm_id);?>, Class ID: <?=esc($studentSCM->scm_class_id);?></td></tr>
+                            <tr><td class="p-0 text-center" colspan="5">SID: <?=esc($studentSCM->scm_u_id);?>, SCM ID: <?=esc($studentSCM->scm_id);?>, Class ID: <?=esc($studentSCM->scm_class_id);?></td></tr>
                         </tbody>
                     </table>
                 </div>
@@ -252,7 +252,7 @@
                 </script>
             </div>
                 
-            <span class="d-none d-print-inline">Printed at: <?=date('jS M Y h:i:s a O');?> by UID: <?=intval(service('AuthLibrary')->getLoggedInUserID());?></span>
+            <span class="d-none d-print-inline">Printed at: <?=date('jS M Y h:i:s a O');?> by SID: <?=intval(service('AuthLibrary')->getLoggedInUserID());?></span>
             <button class="btn btn-info d-print-none" id="printBoxBtnx"><i class="fas fa-print"></i> Print</button>
             <script {csp-script-nonce}>document.addEventListener('DOMContentLoaded',function(){document.getElementById('printBoxBtnx').addEventListener('click',function(){window.print();});});</script>            
         </div>

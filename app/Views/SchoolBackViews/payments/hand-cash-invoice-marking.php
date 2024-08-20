@@ -74,7 +74,7 @@
                                 <br><?=myLang('Class Roll','ক্লাশ রোল');?>: <?=esc($clsData->scm_c_roll);?>
                                 <?=myLang('FCS ID','FCS ID');?>: <?=esc($clsData->fcs_id);?>,
                                 <?=myLang('SCM ID','SCM ID');?>: <?=esc($clsData->scm_id);?>,
-                                <?=myLang('SCM UID','SCM UID');?>: <?=esc($clsData->scm_u_id);?>
+                                <?=myLang('SCM SID','SCM SID');?>: <?=esc($clsData->scm_u_id);?>
                             </div>
                         </address>                                    
                     </div>

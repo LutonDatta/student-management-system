@@ -21,7 +21,7 @@
             <div class="mail-box-header">
                 <h3>
                     Basic Information of Student
-                    <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(UID: $uid)"; } ?>
+                    <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(SID: $uid)"; } ?>
                 </h3>
             </div>
             <div class="mail-box">
@@ -128,7 +128,7 @@
                     <table class="table table-sm table-bordered">
                         <tbody>
                             <tr class="text-center">
-                                <th>UID</th>
+                                <th>SID</th>
                                 <th>Name</th>
                                 <th>Father</th>
                                 <th>Birth</th>

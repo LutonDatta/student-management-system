@@ -19,7 +19,7 @@
         <div class="mail-box-header">
             <h3>
                 Select class and session/year
-                <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(UID: $uid)"; } ?>
+                <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(SID: $uid)"; } ?>
             </h3>
         </div>
         <div class="mail-box">

@@ -207,7 +207,7 @@
                 
                 <div class="col-12">
                     <div class="text-center">Printed at: <?=date('jS M Y h:i:s a P');?> GMT</div>
-                    <div class="text-center">Printed info of UID: <?=$udr->student_u_id;?></div>
+                    <div class="text-center">Printed info of SID: <?=$udr->student_u_id;?></div>
                 </div>
         </div>
     </div>
