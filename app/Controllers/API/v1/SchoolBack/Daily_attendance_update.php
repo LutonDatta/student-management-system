@@ -74,7 +74,7 @@ class Daily_attendance_update extends ResourceController {
                 ->first(); // We should have only one row based on admitted student in a class/session
         
         if( ! is_object($scmStatus)){
-            return $this->respond([ 'error' => "No such admitted student found based on your information. Class ID: {$student_class_id}, UID: {$student_u_id}"]);
+            return $this->respond([ 'error' => "No such admitted student found based on your information. Class ID: {$student_class_id}, SID: {$student_u_id}"]);
         }
         
         if( intval($scmStatus->scm_c_roll) < 1 ){

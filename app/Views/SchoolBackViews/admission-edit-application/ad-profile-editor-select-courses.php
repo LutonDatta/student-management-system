@@ -21,7 +21,7 @@
                 <div class="text-center h6">
                     Class: <?=esc($selectedClass->title);?> [<?=esc($selectedClass->fcs_id);?>], 
                     Session/Year: <?=esc($selectedSession);?>,
-                    <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(UID: $uid)"; } ?>
+                    <?php $uid = intval(service('request')->getget('student_id')); if($uid > 0){ echo "(SID: $uid)"; } ?>
                 </div> 
             </div>
             <?php if(isset($coursesUnderClassM) AND is_array($coursesUnderClassM)) : ?>

@@ -35,7 +35,7 @@
                 <thead>
                     <tr class="text-center">
                         <th data-toggle="tooltip" title="Invoice ID" scope="col">Invoice ID</th>
-                        <th data-toggle="tooltip" title="User ID" scope="col">UID</th>
+                        <th data-toggle="tooltip" title="User ID" scope="col">SID</th>
                         <th data-toggle="tooltip" title="Payment Target Identity" scope="col">Class ID</th>
                         <th data-toggle="tooltip" title="Invoice Created in this date" scope="col">Created</th>
                         <th data-toggle="tooltip" title="Invoice Created in this date" scope="col">Updated</th>

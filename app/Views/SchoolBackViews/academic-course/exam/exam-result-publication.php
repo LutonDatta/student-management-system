@@ -93,7 +93,7 @@
                                     <?=myLang('Status','Status');?>
                                 </th>
                                 <th scope="col" class="text-left"><?=myLang('Obtained Mark/Out Of','প্রাপ্ত নম্বর/মোট নম্বর');?></th>
-                                <th scope="col" class="text-center"><?=myLang('UID','UID');?></th>
+                                <th scope="col" class="text-center"><?=myLang('SID','SID');?></th>
                             </tr>
                         </thead>
                         <tbody>
