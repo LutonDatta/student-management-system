@@ -108,7 +108,7 @@
                 array(
                     'active'    => in_array($loadedPage,['admission_setup','admission_applications','edit_application','step_up_down','student_list_x','personal_info','personal_photo','admission_course_selector']) ? 'active' : '',
                     'areaExp'   => in_array($loadedPage,['admission_setup','admission_applications','edit_application','step_up_down','student_list_x','personal_info','personal_photo','admission_course_selector']) ? 'true' : 'false',
-                    'menuLabel' => 'Student',
+                    'menuLabel' => 'Students',
                     'icon'      => 'fas fa-user-graduate',
                     'counter'   => '<i class="fa arrow"></i>',
                     'subItems'  => [
@@ -163,6 +163,28 @@
                             'url'       => base_url('admin/library/bin'),
                             'menuLabel' => lang('Admin_menu.library_recycle_bin'),
                         ),
+                    ]
+                ),
+                array(
+                    'active'    => in_array($loadedPage,['hostel_buildings_n_rooms_editor','hostel_bed_ditribution','hostel_report']) ? 'active' : '',
+                    'areaExp'   => in_array($loadedPage,['hostel_buildings_n_rooms_editor','hostel_bed_ditribution','hostel_report']) ? 'true' : 'false',
+                    'menuLabel' => 'Hostel',
+                    'icon'      => 'fa fa-regular fa-building',
+                    'counter'   => '<i class="fa arrow"></i>',
+                    'subItems'  => [
+                        array(
+                            'active'    => in_array($loadedPage,['hostel_buildings_n_rooms_editor']) ? 'active' : '',
+                            'url'       => base_url('admin/hostel/rooms'),
+                            'menuLabel' => 'Buildings & Rooms',
+                        ),array(
+                            'active'    => in_array($loadedPage,['hostel_bed_ditribution']) ? 'active' : '',
+                            'url'       => base_url('admin/hostel/bed/distribution'),
+                            'menuLabel' => 'Bed / Seat Distribution',
+                        ),array(
+                            'active'    => in_array($loadedPage,['hostel_report']) ? 'active' : '',
+                            'url'       => base_url('admin/hostel/report'),
+                            'menuLabel' => 'Hostel Report',
+                        )
                     ]
                 ),
                 
