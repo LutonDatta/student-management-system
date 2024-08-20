@@ -71,7 +71,7 @@
                                 <th>Class Roll</th>
                                 <th>Action</th>
                                 <th>Present?</th>
-                                <th>UID</th>
+                                <th>SID</th>
                             </tr>';?>
                         <thead><?=$hRow;?></thead>
                         <tfoot><?=$hRow;?></tfoot>

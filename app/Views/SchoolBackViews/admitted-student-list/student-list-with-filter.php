@@ -61,7 +61,7 @@
                     $tr_thead_tfoot .= '<th scope="col">Mobile/Email</th>';
                     $tr_thead_tfoot .= '<th scope="col" class="d-print-none">Print</th>';
                     
-                    $tr_thead_tfoot .= '<th scope="col" ' . tt_title('User ID', 'right') . '>UID</th>';
+                    $tr_thead_tfoot .= '<th scope="col" ' . tt_title('User ID', 'right') . '>SID</th>';
                     $tr_thead_tfoot .= '<th scope="col" ' . tt_title('Courses Classes Students Mapping ID', 'right') . '>SCM ID</th>';
                     
                 $tr_thead_tfoot .= '</tr>';

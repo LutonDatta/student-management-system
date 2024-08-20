@@ -121,7 +121,7 @@ class Cash_collection_on_hand extends BaseController {
     
     
     private function process_submitted_post_request_to_get_student_id(){
-        $mob_em_uid         = intval($this->request->getPost('mobile_email_uidx')); // Student UID
+        $mob_em_uid         = intval($this->request->getPost('mobile_email_uidx')); // Student SID
 
         if($mob_em_uid > 0){
             $mappingRow = service('StudentsModel')->select('student_u_id')->find($mob_em_uid);

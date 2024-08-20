@@ -54,7 +54,7 @@
         <div class="col-lg-4 animated fadeInRight">
             <div class="widget-text-box text-center">
                 <div>
-                    <?php $uid = intval(service('request')->getget('student_id')); echo "(UID: $uid)"; ?>
+                    <?php $uid = intval(service('request')->getget('student_id')); echo "(SID: $uid)"; ?>
                 </div>
                 <div>
                     <?=anchor("admin/admission/student/list",'Show Student List',['class'=>'btn btn-success mb-2']);?>

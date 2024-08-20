@@ -61,7 +61,7 @@
                         <th scope="col" <?=tt_title('Select All Rows', 'right');?>>
                             <input type="checkbox" class="checkboxAllMarker">
                         </th>
-                        <th scope="col" <?=tt_title('User ID', 'right');?>>UID</th>
+                        <th scope="col" <?=tt_title('User ID', 'right');?>>SID</th>
                         <th scope="col" <?=tt_title('Courses Classes Students Mapping ID', 'right');?>>SCM ID</th>
                         <th scope="col" <?=tt_title('Class Roll', 'right');?>>Roll</th>
                         <th scope="col" <?=tt_title(myLang('Student Name','শিক্ষার্থীর নাম'), 'right');?>>Name</th>
@@ -111,7 +111,7 @@
                         <th scope="col" <?=tt_title('Select All Rows', 'right');?>>
                             <input type="checkbox" class="checkboxAllMarker">
                         </th>
-                        <th scope="col" <?=tt_title('User ID', 'right');?>>UID</th>
+                        <th scope="col" <?=tt_title('User ID', 'right');?>>SID</th>
                         <th scope="col" <?=tt_title('Courses Classes Students Mapping ID', 'right');?>>SCM ID</th>
                         <th scope="col" <?=tt_title('Class Roll', 'right');?>>Roll</th>
                         <th scope="col" <?=tt_title(myLang('Student Name','শিক্ষার্থীর নাম'), 'right');?>>Name</th>

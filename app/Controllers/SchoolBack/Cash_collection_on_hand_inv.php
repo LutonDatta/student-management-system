@@ -43,13 +43,13 @@ class Cash_collection_on_hand_inv extends BaseController {
         foreach($userCLasses as $scmRow){
             $clsObj = service('ClassesAndSemestersModel')->withDeleted()->get_single_class_with_parent_label(intval($scmRow->fcs_id));
             $cls = is_object($clsObj) ? $clsObj->title : 'No class';
-            $processedUserCLasses[ $scmRow->scm_id ] = "$cls [$scmRow->fcs_id] - Session: $scmRow->scm_session_year, Roll: $scmRow->scm_c_roll, SCM ID: $scmRow->scm_id, SCM UID: $scmRow->scm_u_id - " . (isset(get_student_class_status()[$scmRow->scm_status]) ? get_student_class_status()[$scmRow->scm_status]: '');
+            $processedUserCLasses[ $scmRow->scm_id ] = "$cls [$scmRow->fcs_id] - Session: $scmRow->scm_session_year, Roll: $scmRow->scm_c_roll, SCM ID: $scmRow->scm_id, SCM SID: $scmRow->scm_u_id - " . (isset(get_student_class_status()[$scmRow->scm_status]) ? get_student_class_status()[$scmRow->scm_status]: '');
         }
         $data['userCLasses']    = $processedUserCLasses;
         $data['studentRow']     = $studentRow;
         
         
-        /* CAUTON: Never place these processing at the top of this function. We need verified UID, SCM ids.*/
+        /* CAUTON: Never place these processing at the top of this function. We need verified SID, SCM ids.*/
         $from_submit_hc = $this->create_or_update_hand_cash_invoice($studentRow->student_u_id,$processedUserCLasses);
         if(is_object($from_submit_hc)){ return $from_submit_hc; }elseif(is_array($from_submit_hc)){ $data = array_merge($data, $from_submit_hc);}
         
