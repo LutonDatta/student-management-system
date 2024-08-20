@@ -35,7 +35,7 @@ class Hostel extends ResourceController {
             $nodes[] = [
                 'text'      => $rw->hos_title . " [{$rw->hos_id}]",
                 'id'        => $rw->hos_id,
-                'icon'      => 'glyphicon glyphicon-grain',
+                'icon'      => 'fa fa-regular fa-building',
                 'children'  => $has_children,
             ];
         }
