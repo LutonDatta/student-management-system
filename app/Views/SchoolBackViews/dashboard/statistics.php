@@ -65,7 +65,7 @@
                     <div type="button"><i class="fas fa-cloud-download-alt"></i></div>
                 </h1>
                 <h3 class="font-bold no-margins"><?=lang('Menu.courses');?>/Subjects</h3>
-                <small>Total number of courses/subjects added.</small>
+                <small>Total number of courses / subjects added.</small>
             </div>
         </div>
     </div>

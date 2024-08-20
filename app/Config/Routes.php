@@ -91,6 +91,11 @@ $routes->group('admin',['namespace' => 'App\Controllers\SchoolBack', 'filter' =>
             $routes->match(['get','post'], 'exam/results/viewer',   'Exam_results_viewer::show_exam_results'); 
             $routes->match(['get','post'], 'exam/date/time/viewer', 'Exam_date_time_viewer::show_exam_date_time_to_students'); 
     });
+    
+    $routes->group('hostel', function($routes){
+        $routes->match(['get','post'], 'rooms', 'Hostel::rooms_setup'); 
+    });
+    
     $routes->group('admission', function($routes){
             $routes->match(['get','post'], 'bulk/action',               'Bulk_action::admission_bulk_actions');
             $routes->match(['get','post'], 'edit/application/by/admin', 'Admission_edit_application::edit_admission_application');
@@ -120,6 +125,7 @@ $routes->group('admin',['namespace' => 'App\Controllers\SchoolBack', 'filter' =>
 $routes->group('api/v1', ['namespace' => 'App\Controllers\API\v1\SchoolFront', 'filter' => 'auth'], function($routes){
     $routes->match(['get','post'],  'users',                'Users::render_users');         // Renders list of users, generally search users by id or other user data
     $routes->match(['get','post'],  'classes',              'Academic::render_classes');   // Renders list of classes of root, or sub classes under parent class if parent id provide
+    $routes->match(['get','post'],  'hostels',              'Hostel::render_rooms');   // Renders list of hostel rooms in jstree
     $routes->match(['get','post'],  'courses',              'Courses::render_courses');   // Pbulicly Renders list of courses
     $routes->match(['get','post'],  'viewable/sessions/yrs','Sessions_years::render_sessions_years');   // Publicly Renders list of available sessions/years
     $routes->post(                  'select2/view/books',   'Library::view_public_book_data');   
