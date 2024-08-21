@@ -59,9 +59,9 @@
                     $tr_thead_tfoot .= '<th scope="col">Session</th>';
                     $tr_thead_tfoot .= '<th scope="col">Status</th>';
                     $tr_thead_tfoot .= '<th scope="col">Mobile/Email</th>';
-                    $tr_thead_tfoot .= '<th scope="col" class="d-print-none">Print</th>';
+                    $tr_thead_tfoot .= '<th scope="col" class="d-print-none">Do</th>';
                     
-                    $tr_thead_tfoot .= '<th scope="col" ' . tt_title('User ID', 'right') . '>SID</th>';
+                    $tr_thead_tfoot .= '<th scope="col" ' . tt_title('Student ID', 'right') . '>SID</th>';
                     $tr_thead_tfoot .= '<th scope="col" ' . tt_title('Courses Classes Students Mapping ID', 'right') . '>SCM ID</th>';
                     
                 $tr_thead_tfoot .= '</tr>';
@@ -77,9 +77,7 @@
                                     <input type="checkbox" class="cxbxStdMkr" data-student_id="<?=$stdDta->student_u_id;?>">
                                 </td>
                                 <td class="p-0">
-                                    <?php 
-                                        $thumb = cdn_url('default-images/profile-pic-boy.png');
-                                    ?>
+                                    <?php $thumb = cdn_url('default-images/profile-pic-boy.png'); ?>
                                     <a href="<?=$thumb;?>" target="_blank" data-toggle="modal" data-target="#showThumbModal" data-turl="<?=$thumb;?>">
                                         <img width="40" src="<?=$thumb;?>" alt="Image" class="m-0 p-0">
                                     </a>
@@ -99,31 +97,19 @@
                                 </td>
                                 <td><?=esc($stdDta->student_u_father_name);?></td>
                                 <td><?=esc($stdDta->student_u_mother_name);?></td>
-                                
                                 <td><?=esc($stdDta->scm_class_id);?></td>
                                 <td><?=esc($stdDta->scm_session_year);?></td>
-                                
-                                <td>
-                                    <?=isset(get_student_class_status()[$stdDta->scm_status]) ? get_student_class_status()[$stdDta->scm_status]: '';?>
-                                    <?=anchor(
-                                            "admin/academic/exam/results/publish?result_pub_std_uid={$stdDta->student_u_id}&result_pub_std_scm_id={$stdDta->scm_id}&result_pub_std_sess=".urlencode(trim($stdDta->scm_session_year)),
-                                            '<i class="fas fa-solid fa-id-badge"></i> ' . myLang('Result Publish','ফল প্রকাশ'),
-                                            ['class'=>'btn btn-info btn-sm mb-1 d-print-none']);?>
-                                    <?=anchor(
-                                            "admin/academic/exam/results/view/own?student_id={$stdDta->student_u_id}",
-                                            '<i class="fas fa-solid fa-id-badge"></i> Mark Sheet - Multi',
-                                            ['class'=>'btn btn-success btn-sm d-print-none']);?>
-                                </td>
+                                <td><?=isset(get_student_class_status()[$stdDta->scm_status]) ? get_student_class_status()[$stdDta->scm_status]: '';?></td>
                                 <td><?=esc(implode(' / ',array_filter([strval($stdDta->student_u_mobile_own),strval($stdDta->student_u_email_own)])));?></td>
-                                <td class="small d-print-none">
-                                    <div>
-                                        <?=anchor("print/admission/test/admit/card?apply_to_class_id={$stdDta->scm_class_id}&admit_card_of={$stdDta->student_u_id}&sess_year={$stdDta->scm_session_year}",'<i class="fas fa-print"></i> Admit Card',['class'=>'btn btn-success mb-1 btn-sm']);?>
-                                    </div>
-                                    <div>
-                                        <?=anchor("student/info/print/view?apply_to_class_id={$stdDta->scm_class_id}&user_id={$stdDta->student_u_id}&sess_year={$stdDta->scm_session_year}",'<i class="fas fa-print"></i> Student Information',['class'=>'btn btn-info mb-1 btn-sm']);?>
-                                    </div>
-                                    <?=anchor("print/student/admission/confirmation/form?user_id={$stdDta->student_u_id}&scm_id={$stdDta->scm_id}",'<i class="fas fa-print"></i> Confirmation Form',['class'=>'btn btn-success mb-1 btn-sm']);?>
-                                    <?=anchor("admin/pg/cash/in/hand/collection/create/inv?student_uid={$stdDta->student_u_id}&student_scm_id={$stdDta->scm_id}",'<i class="fas fa-solid fa-wallet"></i> Hand Cash',['class'=>'btn btn-secondary btn-sm']);?>
+                                <td class="d-print-none">
+                                    <a class="btn btn-secondary text-white" data-toggle="modal" data-target="#showActionsModal" 
+                                        data-actroll="<?=intval($stdDta->scm_c_roll);?>" 
+                                        data-actscmid="<?=intval($stdDta->scm_id);?>"
+                                        data-actsid="<?=intval($stdDta->student_u_id);?>"
+                                        data-actclsid="<?=intval($stdDta->scm_class_id);?>"
+                                        data-actsessyr="<?=intval($stdDta->scm_session_year);?>"
+                                        data-actname="<?=esc(service('AuthLibrary')->getUserFullName_fromObj($stdDta,'No name'));?>"
+                                    >Actions</a>
                                 </td>
                                 <td><?=$stdDta->student_u_id;?></td>
                                 <td>
@@ -140,7 +126,6 @@
                                         }
                                     ?>
                                 </td>
-                                
                                 
                             </tr>
                         <?php endforeach; ?>
@@ -174,7 +159,6 @@
                         </tr>
                     <?php endif; ?>
                 </tbody>
-                
             </table>
             <?= isset($studentsLstPgr) ? $studentsLstPgr : '';?>
         </div>
@@ -185,6 +169,18 @@
 
 
 <script {csp-script-nonce}>document.addEventListener('DOMContentLoaded',function(){document.getElementById('printBoxBtnx').addEventListener('click',function(){window.print();});});</script>
+
+<div class="modal fade" id="showActionsModal" tabindex="-1" aria-labelledby="showActionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header"><h5 class="modal-title" id="showActionsModalLabel">Student Actions</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>
+            <div id="modelDivAddLinksStudents" class="modal-body text-center">
+                <!--Keep empty, will add button later-->
+            </div>
+            <div class="modal-header border-top text-center"><button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button></div>
+        </div>
+    </div>
+</div>
 
 <!-- This model will allow admin to update roll of a student -->
 <div class="modal fade" id="showRollModal" tabindex="-1" aria-labelledby="showRollModalLabel" aria-hidden="true">
@@ -202,6 +198,46 @@
 </div>
 <script {csp-script-nonce}>
     document.addEventListener("DOMContentLoaded", function(){
+        $('#showActionsModal').on('hide.bs.modal', function(event){
+            $('#modelDivAddLinksStudents').html(''); /* Hide when hidden, otherwise, buttons will be duplicated for other students. */
+        });
+        
+        $('#showActionsModal').on('show.bs.modal', function(event){
+            var actRT       = $(event.relatedTarget); 
+            var actRoll     = actRT.data('actroll');    
+            var actSID      = actRT.data('actsid');     
+            var actName     = actRT.data('actname');    
+            var actScmId    = actRT.data('actscmid');   
+            var actClsID    = actRT.data('actclsid');   
+            var actSessYr   = actRT.data('actsessyr');  
+            
+            $.each([ 
+                {
+                    url: '<?=base_url('print/admission/test/admit/card?apply_to_class_id=actClsID&admit_card_of=actSID&sess_year=actSessYr');?>',
+                    fa: 'fas fa-print', txt: 'Admit Card', class: 'm-1 btn btn-success'
+                },{
+                    url: '<?=base_url('student/info/print/view?apply_to_class_id=actClsID&user_id=actSID&sess_year=actSessYr');?>',
+                    fa: 'fas fa-print', txt: 'Student Information', class: 'm-1 btn btn-info'
+                },{
+                    url: '<?=base_url('print/student/admission/confirmation/form?scm_id=actScmId&user_id=actSID');?>',
+                    fa: 'fas fa-print', txt: 'Confirmation Form', class: 'm-1 btn btn-success'
+                },{
+                    url: '<?=base_url('admin/pg/cash/in/hand/collection/create/inv?student_scm_id=actScmId&student_uid=actSID');?>',
+                    fa: 'fas fa-solid fa-wallet', txt: 'Hand Cash', class: 'm-1 btn btn-secondary'
+                },{
+                    url: '<?=base_url('admin/academic/exam/results/publish?result_pub_std_scm_id=actScmId&result_pub_std_uid=actSID&result_pub_std_sess=actSessYr');?>',
+                    fa: 'fas fa-solid fa-id-badge', txt: 'Result Publish', class: 'm-1 btn btn-info'
+                },{
+                    url: '<?=base_url('admin/academic/exam/results/view/own?student_id=actSID');?>',
+                    fa: 'fas fa-solid fa-id-badge', txt: 'Mark Sheet - Multi', class: 'm-1 btn btn-success'
+                }
+            ], function( index, val ) {
+                $('#showActionsModalLabel').html('Student Actions - ' + actName );
+                var url = (val.url).replace('actClsID',actClsID).replace('actSID',actSID).replace('actSessYr',actSessYr).replace('actScmId',actScmId);
+                $('#modelDivAddLinksStudents').append($('<a href="'+url+'" class="'+val.class+'"><i class="'+val.fa+'"></i> '+val.txt+'</a>'));
+            });
+        });
+        
         $.ajaxSetup({headers: { '<?=csrf_header();?>': '<?=csrf_hash();?>' }});
         $('#showRollModal').on('show.bs.modal', function(event){
             var bClkd = $(event.relatedTarget); // Button that triggered the modal
