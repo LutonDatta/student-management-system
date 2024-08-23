@@ -50,7 +50,7 @@ class Hostel_and_rooms_Model extends Model{
      * @param bool $remove_parents If false passed it will include parent items separately.
      * return array( child_class_id => parent faculty name -> dept name -> class name ,..)
      */
-    public function get_hostel_room_with_parent_label( bool $remove_parents = true, bool $esc_values = true ){
+    public function get_hostel_room_with_parent_label( bool $remove_parents = true, bool $esc_values = true, bool $return_row_obj = false ){
         $t      = $this->DBPrefix . $this->table;
         $sql    =  "SELECT 
                     t.hos_id, t.hos_title, t.hos_parent, 
@@ -65,7 +65,7 @@ class Hostel_and_rooms_Model extends Model{
                 LEFT JOIN $t AS t1 ON t2.hos_parent = t1.hos_id
                 ";
         if($remove_parents){
-            $sql .= " AND t.hos_id NOT IN ( SELECT DISTINCT $t.hos_parent FROM $t ) ";
+            $sql .= " WHERE t.hos_id NOT IN ( SELECT {$t}.hos_parent FROM $t WHERE {$t}.hos_parent IS NOT NULL ) ";
         }
         
         /**
@@ -84,7 +84,12 @@ class Hostel_and_rooms_Model extends Model{
             $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? esc($cls->title_3) . ' -> ' : '';
             $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? esc($cls->title_4) . ' -> ' : '';
             $title .= esc($cls->hos_title);
-            $simplified_class_name[$cls->hos_id] = $esc_values ? esc($title) : $title;
+            if($return_row_obj){
+                $cls->title = $title;
+                $simplified_class_name[] = $cls;
+            }else{
+                $simplified_class_name[$cls->hos_id] = $esc_values ? esc($title) : $title;
+            }
         }
         return $simplified_class_name; // Useable in dropdown
     }
