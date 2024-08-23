@@ -37,6 +37,8 @@ class Hostel_bed extends BaseController {
         $data['hostelRooms']    = service('HostelAndRoomsModel')->get_hostel_room_with_parent_label_with_pagination(true,'hostel_room_list');
         $data['hostelRoomsPgr'] = service('HostelAndRoomsModel')->pager->links('hostel_room_list');
         
+        $data['selectedRoom']    = service('HostelAndRoomsModel')->get_single_hostel_room_with_parent_label(intval($this->request->getGet('hostel_room_id')));
+        
         echo view('SchoolBackViews/head', $data);
         echo view('SchoolBackViews/_parts/nav-left', $data);
         echo view('SchoolBackViews/_parts/nav-top', $data); 
