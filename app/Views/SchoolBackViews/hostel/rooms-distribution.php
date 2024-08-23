@@ -20,9 +20,25 @@
                                                 <?php
                                                 echo '<strong>'.service('AuthLibrary')->getUserFullName_fromObj($selectedStudent,'No name').'</strong>';
                                                 echo '<br>Student ID (SID): ' . $selectedStudent->student_u_id;
-                                                echo '<br>Father Name: ' . $selectedStudent->student_u_father_name;
-                                                echo '<br>Mother Name: ' . $selectedStudent->student_u_mother_name;
+                                                echo '<br>Father: ' . $selectedStudent->student_u_father_name .' & Mother: ' . $selectedStudent->student_u_mother_name;
+                                                echo ''; 
+                                                $bookings = service('HostelRoomsBookingModel')->select('hrb_seat_no,hos_title')->join('hostel_and_rooms','hostel_and_rooms.hos_id = hostel_rooms_booking.hrb_hos_id','LEFT')->where('hrb_student_id',$selectedStudent->student_u_id)->find();
                                                 ?>
+                                                <?php if(count($bookings) > 0): ?>
+                                                    <br>Bookings: <?=count($bookings);?>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-auto">
+                                                            <table class="table table-responsive">
+                                                                <tr><th>Seat #</th><th>Room Name</th></tr>
+                                                                <?php 
+                                                                foreach($bookings as $seatB){
+                                                                    echo "<tr><td>{$seatB->hrb_seat_no}</td><td>".esc($seatB->hos_title)."</td></tr>";
+                                                                }
+                                                                ?>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                <?php endif;?>
                                             </td>
                                         <?php else:?>
                                             <td colspan="6">No Student Selected.</td>
@@ -52,7 +68,10 @@
                                                 echo '<br>Capacity: ' . $selectedRoom->hos_capacity;
                                                 echo '<br>Occupied: ' . esc(service('HostelRoomsBookingModel')->where('hrb_hos_id',$selectedRoom->hos_id)->countAllResults());
                                                 $seats = service('HostelRoomsBookingModel')->where('hrb_hos_id',$selectedRoom->hos_id)->findColumn('hrb_seat_no');
-                                                var_dump($seats);
+                                                if(is_array($seats) AND count($seats) > 0 ){
+                                                    sort($seats);
+                                                    echo ' ('. implode(', ', $seats) . ')';
+                                                }
                                                 ?>
                                             </td>
                                         <?php else:?>
@@ -72,14 +91,15 @@
                                 <?php if(isset($selectedStudent) AND is_object($selectedStudent)) : ?>
                                     <?=form_open('admin/hostel/bed/distribution',['method'=>'post'],[
                                                 'student_id'        => $selectedStudent->student_u_id,
-                                                'hostel_room_id'    => $selectedRoom->hos_id
+                                                'hostel_room_id'    => $selectedRoom->hos_id,
+                                                'hostel_room_book'  => 'yes'
                                             ]);?>
                                             <div class="row">
                                                 <div class="col-lg-4 text-right">
                                                     <label for="seat_number" class="m-2">Select Seat Number: </label>
                                                 </div>
                                                 <div class="col-lg-4">
-                                                    <?= form_dropdown('seat_number',range(1,intval($selectedRoom->hos_capacity),1),'',['class'=>'form-control','id'=>'seat_number']); ?>
+                                                    <?= form_dropdown('seat_number',range(0,intval($selectedRoom->hos_capacity),1),'',['class'=>'form-control','id'=>'seat_number']); ?>
                                                 </div>
                                                 <div class="col-lg-4">
                                                     <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Book Seat </button>
