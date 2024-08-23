@@ -79,11 +79,11 @@ class Hostel_and_rooms_Model extends Model{
         $classes = $this->query($sql)->getResult();
         $simplified_class_name = [];
         foreach( $classes as $cls ){
-            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' -> ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' -> ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' -> ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' -> ' : '';
-            $title .= $cls->hos_title;
+            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? esc($cls->title_1) . ' -> ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? esc($cls->title_2) . ' -> ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? esc($cls->title_3) . ' -> ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? esc($cls->title_4) . ' -> ' : '';
+            $title .= esc($cls->hos_title);
             $simplified_class_name[$cls->hos_id] = $esc_values ? esc($title) : $title;
         }
         return $simplified_class_name; // Useable in dropdown
