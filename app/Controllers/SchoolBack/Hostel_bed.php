@@ -34,6 +34,9 @@ class Hostel_bed extends BaseController {
         $data['students_list']  = $students_obj->withDeleted()->paginate(15,'hostel_student_list');
         $data['studentsLstPgr'] = service('CoursesClassesStudentsMappingModel')->pager->links('hostel_student_list');
         
+        $data['hostelRooms']    = service('HostelAndRoomsModel')->get_hostel_room_with_parent_label_with_pagination(true,'hostel_room_list');
+        $data['hostelRoomsPgr'] = service('HostelAndRoomsModel')->pager->links('hostel_room_list');
+        
         echo view('SchoolBackViews/head', $data);
         echo view('SchoolBackViews/_parts/nav-left', $data);
         echo view('SchoolBackViews/_parts/nav-top', $data); 
