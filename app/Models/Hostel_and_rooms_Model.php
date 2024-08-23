@@ -79,16 +79,16 @@ class Hostel_and_rooms_Model extends Model{
         $classes = $this->query($sql)->getResult();
         $simplified_class_name = [];
         foreach( $classes as $cls ){
-            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? esc($cls->title_1) . ' -> ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? esc($cls->title_2) . ' -> ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? esc($cls->title_3) . ' -> ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? esc($cls->title_4) . ' -> ' : '';
-            $title .= esc($cls->hos_title);
+            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ?  ($esc_values ? esc($cls->title_1) : $cls->title_1) . ' -> ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc_values ? esc($cls->title_2) : $cls->title_2) . ' -> ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc_values ? esc($cls->title_3) : $cls->title_3) . ' -> ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc_values ? esc($cls->title_4) : $cls->title_4) . ' -> ' : '';
+            $title .= $esc_values ? esc($cls->hos_title) : $cls->hos_title;
             if($return_row_obj){
                 $cls->title = $title;
                 $simplified_class_name[] = $cls;
             }else{
-                $simplified_class_name[$cls->hos_id] = $esc_values ? esc($title) : $title;
+                $simplified_class_name[$cls->hos_id] = $title;
             }
         }
         return $simplified_class_name; // Useable in dropdown
