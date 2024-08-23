@@ -53,7 +53,7 @@ class Hostel_and_rooms_Model extends Model{
     public function get_hostel_room_with_parent_label( bool $remove_parents = true, bool $esc_values = true, bool $return_row_obj = false ){
         $t      = $this->DBPrefix . $this->table;
         $sql    =  "SELECT 
-                    t.hos_id, t.hos_title, t.hos_parent, 
+                    t.hos_id, t.hos_title, t.hos_parent, t.hos_capacity,
                     t4.hos_title AS title_4, 
                     t3.hos_title AS title_3, 
                     t2.hos_title AS title_2, 
