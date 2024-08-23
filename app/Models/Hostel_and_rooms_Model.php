@@ -176,9 +176,9 @@ class Hostel_and_rooms_Model extends Model{
         return $classes;
     }
     
-    public function get_single_hostel_room_with_parent_label( int $class_id, string $selectColumns = '' ){
+    public function get_single_hostel_room_with_parent_label( int $class_id, string $selectColumns = '', bool $esc = true ){
         $selectCols = [
-            "$this->table.hos_id",
+            "$this->table.hos_id","$this->table.hos_capacity",
             "MAX({$this->DBPrefix}{$this->table}.hos_parent) AS hos_parent",
             "MAX({$this->DBPrefix}{$this->table}.hos_title) AS hos_title",
             "MAX({$this->DBPrefix}t1.hos_title) AS title_1", 
@@ -204,12 +204,12 @@ class Hostel_and_rooms_Model extends Model{
             return null; // If id is wrong, we have null value here
         }
                     
-            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? $cls->title_5 . ' > ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' > ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' > ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' > ' : '';
-            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' > ' : '';
-            $title .= $cls->hos_title;
+            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? ($esc ? esc($cls->title_5) : $cls->title_5) . ' > ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc ? esc($cls->title_4) : $cls->title_4) . ' > ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc ? esc($cls->title_3) : $cls->title_3) . ' > ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc ? esc($cls->title_2) : $cls->title_2) . ' > ' : '';
+            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? ($esc ? esc($cls->title_1) : $cls->title_1) . ' > ' : '';
+            $title .= $esc ? esc($cls->hos_title) : $cls->hos_title;
             $cls->title = $title;
         return $cls;
     }
