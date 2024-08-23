@@ -51,6 +51,8 @@
                                                 echo '<br>Hostel Room ID: ' . $selectedRoom->hos_id;
                                                 echo '<br>Capacity: ' . $selectedRoom->hos_capacity;
                                                 echo '<br>Occupied: ' . esc(service('HostelRoomsBookingModel')->where('hrb_hos_id',$selectedRoom->hos_id)->countAllResults());
+                                                $seats = service('HostelRoomsBookingModel')->where('hrb_hos_id',$selectedRoom->hos_id)->findColumn('hrb_seat_no');
+                                                var_dump($seats);
                                                 ?>
                                             </td>
                                         <?php else:?>
@@ -65,15 +67,24 @@
             
                 <div class="col-lg-12">
                     <div class="ibox">
-                        <div class="ibox-title p-0 border text-center">
+                        <div class="ibox-title p-2 border">
                             <?php if(isset($selectedRoom) AND is_object($selectedRoom)) : ?>
                                 <?php if(isset($selectedStudent) AND is_object($selectedStudent)) : ?>
                                     <?=form_open('admin/hostel/bed/distribution',['method'=>'post'],[
                                                 'student_id'        => $selectedStudent->student_u_id,
                                                 'hostel_room_id'    => $selectedRoom->hos_id
                                             ]);?>
-                                            <?= form_dropdown(); ?>
-                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Book Seat </button>
+                                            <div class="row">
+                                                <div class="col-lg-4 text-right">
+                                                    <label for="seat_number" class="m-2">Select Seat Number: </label>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <?= form_dropdown('seat_number',range(1,intval($selectedRoom->hos_capacity),1),'',['class'=>'form-control','id'=>'seat_number']); ?>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Book Seat </button>
+                                                </div>
+                                            </div>
                                     <?=form_close();?>
                                 <?php endif;?>
                             <?php endif;?>
