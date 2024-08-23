@@ -102,8 +102,8 @@ class Hostel_and_rooms_Model extends Model{
      * @param bool $esc Escape title. Some cases we do not need to escape, pass false to prevent double escape if needed.
      * @return type
      */
-    public function get_hostel_room_with_parent_label_for_dropdown( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, bool $esc = true ){
-        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage, 0, '', $esc);
+    public function get_hostel_room_with_parent_label_for_dropdown( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, bool $esc = true, int $pageNumber = 0, string $selectColumns = '' ){
+        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage, $pageNumber, $selectColumns, $esc);
         $list = [];
         foreach($items as $itm ){
             $list[$itm->hos_id] = $itm->title;
