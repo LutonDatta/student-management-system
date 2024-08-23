@@ -178,7 +178,8 @@ class Hostel_and_rooms_Model extends Model{
     
     public function get_single_hostel_room_with_parent_label( int $class_id, string $selectColumns = '', bool $esc = true ){
         $selectCols = [
-            "$this->table.hos_id","$this->table.hos_capacity",
+            "$this->table.hos_id",
+            "MAX({$this->DBPrefix}{$this->table}.hos_capacity)",
             "MAX({$this->DBPrefix}{$this->table}.hos_parent) AS hos_parent",
             "MAX({$this->DBPrefix}{$this->table}.hos_title) AS hos_title",
             "MAX({$this->DBPrefix}t1.hos_title) AS title_1", 
