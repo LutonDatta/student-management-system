@@ -33,7 +33,7 @@ class Migration_add_hostel_rooms_booking_table extends \CodeIgniter\Database\Mig
         $this->forge->createTable('hostel_rooms_booking', TRUE, ['ENGINE' => 'InnoDB', 'comment'=>'Seat booking of hostel rooms.']);
         
         $this->db->enableForeignKeyChecks();
-    }
+    } /* EOM */
 
     public function down(){        
         
