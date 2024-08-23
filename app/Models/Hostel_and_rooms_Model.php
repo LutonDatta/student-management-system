@@ -119,7 +119,7 @@ class Hostel_and_rooms_Model extends Model{
      * @param int $perPage
      * @return type
      */
-    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $pageNumber = 0, string $selectExtras = '', bool $esc = true ){
+    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $pageNumber = 0, string $selectExtras = '', bool $esc = true, bool $addIdToTitle = false ){
         if($remove_parents){
             $this->whereNotIn("$this->table.hos_id", function($bldr){
                 return $bldr
@@ -167,7 +167,7 @@ class Hostel_and_rooms_Model extends Model{
             $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc ? esc($cls->title_3) : $cls->title_3) . ' -> ' : '';
             $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc ? esc($cls->title_2) : $cls->title_2) . ' -> ' : '';
             $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? ($esc ? esc($cls->title_1) : $cls->title_1) . ' -> ' : '';
-            $title .= ($esc ? esc($cls->hos_title) : $cls->hos_title) . " [{$cls->hos_id}]";
+            $title .= ($esc ? esc($cls->hos_title) : $cls->hos_title) . ($addIdToTitle ? " [{$cls->hos_id}]" : '');
             $cls->title = $title;
             $classes[] = $cls;
         }        
