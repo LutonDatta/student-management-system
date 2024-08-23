@@ -103,10 +103,10 @@ class Hostel_and_rooms_Model extends Model{
      * @return type
      */
     public function get_hostel_room_with_parent_label_for_dropdown( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, bool $esc = true ){
-        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage );
+        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage, 0, '', $esc);
         $list = [];
         foreach($items as $itm ){
-            $list[$itm->hos_id] = $esc ? esc($itm->title) : $itm->title;
+            $list[$itm->hos_id] = $itm->title;
         }
         return $list;
     }
@@ -119,7 +119,7 @@ class Hostel_and_rooms_Model extends Model{
      * @param int $perPage
      * @return type
      */
-    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $page = 0, string $selectExtras = '' ){
+    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $pageNumber = 0, string $selectExtras = '', bool $esc = true ){
         if($remove_parents){
             $this->whereNotIn("$this->table.hos_id", function($bldr){
                 return $bldr
@@ -131,22 +131,18 @@ class Hostel_and_rooms_Model extends Model{
         }
         
         $pager = \Config\Services::pager(null, null, false);
-        $page  = $page >= 1 ? $page : $pager->getCurrentPage($pageSfx);
+        $page  = $pageNumber >= 1 ? $pageNumber : $pager->getCurrentPage($pageSfx);
         
         // We may call this function from same request, so do not need to count many times, use previously counted rows to speed up
         // Speed up controller : Admission_automation->step_up_step_down() 
-	$this->total_counted = (property_exists($this, 'total_counted') AND $this->total_counted > 0) 
-                ? $this->total_counted 
-                : $this->countAllResults(false);
+	$this->total_counted = (property_exists($this, 'total_counted') AND $this->total_counted > 0) ? $this->total_counted : $this->countAllResults(false);
         
 	// Store it in the Pager library so it can be paginated in the views.
 	$this->pager    = $pager->store($pageSfx, $page, $perPage, $this->total_counted);
 	$offset         = ($page - 1) * $perPage;
                 
         $selectCols = [
-            "$this->table.hos_id",
-            "$this->table.hos_parent",
-            "$this->table.hos_title",
+            "$this->table.hos_id", "$this->table.hos_parent", "$this->table.hos_capacity", "$this->table.hos_title",
             't1.hos_title AS title_1', 
             't2.hos_title AS title_2', 
             't3.hos_title AS title_3', 
@@ -166,12 +162,12 @@ class Hostel_and_rooms_Model extends Model{
         $classes = [];
         
         foreach( $this->findAll($perPage, $offset) as $cls ){
-            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? $cls->title_5 . ' -> ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' -> ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' -> ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' -> ' : '';
-            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' -> ' : '';
-            $title .= $cls->hos_title . " [{$cls->hos_id}]";
+            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? ($esc ? esc($cls->title_5) : $cls->title_5) . ' -> ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc ? esc($cls->title_4) : $cls->title_4) . ' -> ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc ? esc($cls->title_3) : $cls->title_3) . ' -> ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc ? esc($cls->title_2) : $cls->title_2) . ' -> ' : '';
+            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? ($esc ? esc($cls->title_1) : $cls->title_1) . ' -> ' : '';
+            $title .= ($esc ? esc($cls->hos_title) : $cls->hos_title) . " [{$cls->hos_id}]";
             $cls->title = $title;
             $classes[] = $cls;
         }        
