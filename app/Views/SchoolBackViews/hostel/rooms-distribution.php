@@ -119,7 +119,7 @@
                                                 <?php endif;?>
                                             </td>
                                         <?php else:?>
-                                            <td colspan="5">No Hostel Book Selected.</td>
+                                            <td colspan="5">No Hostel Room Selected.</td>
                                         <?php endif;?>
                                     </tr>
                                 </tbody>
@@ -131,8 +131,7 @@
                 <div class="col-lg-12">
                     <div class="ibox">
                         <div class="ibox-title p-2 border">
-                            <?php if(isset($selectedRoom) AND is_object($selectedRoom)) : ?>
-                                <?php if(isset($selectedStudent) AND is_object($selectedStudent)) : ?>
+                            <?php if(isset($selectedRoom) AND is_object($selectedRoom) AND isset($selectedStudent) AND is_object($selectedStudent)) : ?>
                                     <?=form_open('admin/hostel/bed/distribution',['method'=>'post'],[
                                                 'student_id'        => $selectedStudent->student_u_id,
                                                 'hostel_room_id'    => $selectedRoom->hos_id,
@@ -150,7 +149,8 @@
                                                 </div>
                                             </div>
                                     <?=form_close();?>
-                                <?php endif;?>
+                            <?php else:?>
+                                <div class="text-center">Please select hostel room and student to book seat.</div>
                             <?php endif;?>
                         </div>
                     </div>
