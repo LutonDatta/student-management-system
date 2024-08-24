@@ -95,6 +95,7 @@ $routes->group('admin',['namespace' => 'App\Controllers\SchoolBack', 'filter' =>
     $routes->group('hostel', function($routes){
         $routes->match(['get','post'], 'rooms', 'Hostel::rooms_setup'); 
         $routes->match(['get','post'], 'bed/distribution', 'Hostel_bed::rooms_distribution'); 
+        $routes->match(['get','post'], 'report', 'Hostel_report::occupied_seats'); 
     });
     
     $routes->group('admission', function($routes){
