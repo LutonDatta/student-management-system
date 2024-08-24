@@ -18,21 +18,32 @@
                                         <?php if(isset($selectedStudent) AND is_object($selectedStudent)) : ?>
                                             <td>
                                                 <?php
-                                                echo '<strong>'.service('AuthLibrary')->getUserFullName_fromObj($selectedStudent,'No name').'</strong>';
+                                                $bookings = service('HostelRoomsBookingModel')->select('hrb_seat_no,hos_title,hrb_hos_id')->join('hostel_and_rooms','hostel_and_rooms.hos_id = hostel_rooms_booking.hrb_hos_id','LEFT')->where('hrb_student_id',$selectedStudent->student_u_id)->find();
+                                                echo '<strong>'.esc(service('AuthLibrary')->getUserFullName_fromObj($selectedStudent,'No name')).'</strong>';
                                                 echo '<br>Student ID (SID): ' . $selectedStudent->student_u_id;
                                                 echo '<br>Father: ' . $selectedStudent->student_u_father_name .' & Mother: ' . $selectedStudent->student_u_mother_name;
-                                                echo ''; 
-                                                $bookings = service('HostelRoomsBookingModel')->select('hrb_seat_no,hos_title')->join('hostel_and_rooms','hostel_and_rooms.hos_id = hostel_rooms_booking.hrb_hos_id','LEFT')->where('hrb_student_id',$selectedStudent->student_u_id)->find();
+                                                echo '<br>Bookings: ' . ((count($bookings) > 0) ? count($bookings) : '0'); 
                                                 ?>
                                                 <?php if(count($bookings) > 0): ?>
-                                                    <br>Bookings: <?=count($bookings);?>
                                                     <div class="row justify-content-center">
                                                         <div class="col-auto">
                                                             <table class="table table-responsive">
-                                                                <tr><th>Seat #</th><th>Room Name</th></tr>
+                                                                <tr><th>Seat #</th><th>Room Name</th><th>Booking</th></tr>
                                                                 <?php 
                                                                 foreach($bookings as $seatB){
-                                                                    echo "<tr><td>{$seatB->hrb_seat_no}</td><td>".esc($seatB->hos_title)."</td></tr>";
+                                                                    echo "<tr><td>{$seatB->hrb_seat_no}</td><td>".esc($seatB->hos_title)."</td><td class='p-0'>";
+                                                                    ?>
+                                                                    <?=form_open('admin/hostel/bed/distribution',['method'=>'post'],[
+                                                                                'student_id'        => $selectedStudent->student_u_id,
+                                                                                'hostel_room_id'    => $seatB->hrb_hos_id,
+                                                                                'hostel_room_id_showing_in_page'    => service('request')->getGet('hostel_room_id'),
+                                                                                'hostel_seat_no'    => $seatB->hrb_seat_no,
+                                                                                'hostel_cancel_sid_seat'=> 'yes'
+                                                                            ]);?>
+                                                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Cancel </button>
+                                                                    <?=form_close();?>
+                                                                    <?php 
+                                                                    echo "</td></tr>";
                                                                 }
                                                                 ?>
                                                             </table>
@@ -72,7 +83,40 @@
                                                     sort($seats);
                                                     echo ' ('. implode(', ', $seats) . ')';
                                                 }
+                                                
+                                                $seatsBookings = service('HostelRoomsBookingModel')->select('hrb_student_id,hrb_seat_no,hrb_hos_id,student_u_name_initial,student_u_name_middle,student_u_name_first,student_u_name_last,student_u_father_name,student_u_mother_name,student_u_gender')->join('students','students.student_u_id = hostel_rooms_booking.hrb_student_id','LEFT')->where('hrb_hos_id',$selectedRoom->hos_id)->limit(100)->find();
                                                 ?>
+                                                <?php if(count($seatsBookings) > 0): ?>
+                                                    <div class="row justify-content-center">
+                                                        <div class="col-auto">
+                                                            <table class="table table-responsive">
+                                                                <tr><th>Seat #</th><th>Student Name</th><th>Booking</th></tr>
+                                                                <?php 
+                                                                foreach($seatsBookings as $seatB){
+                                                                    $fntm = implode(' & ', array_filter([trim($seatB->student_u_father_name),trim($seatB->student_u_mother_name)]));
+                                                                    $stdxname = service('AuthLibrary')->getUserFullName_fromObj($seatB,'No name');
+                                                                    $sondot = ($seatB->student_u_gender == 'male') ? 'son of' : ( ($seatB->student_u_gender == 'female') ? 'daughter of' : '');
+                                                                    if(strlen($fntm) > 0){ $stdxname .= " ($sondot ".$fntm.')';}
+
+                                                                    echo "<tr><td>{$seatB->hrb_seat_no}</td><td>".esc($stdxname)."</td><td class='p-0'>";
+                                                                    ?>
+                                                                    <?=form_open('admin/hostel/bed/distribution',['method'=>'post'],[
+                                                                                'student_id'        => $seatB->hrb_student_id,
+                                                                                'hostel_room_id'    => $seatB->hrb_hos_id,
+                                                                                'hostel_room_id_showing_in_page'    => service('request')->getGet('hostel_room_id'),
+                                                                                'hostel_seat_no'    => $seatB->hrb_seat_no,
+                                                                                'hostel_cancel_room_seat'=> 'yes'
+                                                                            ]);?>
+                                                                            <button type="submit" class="btn btn-success"><i class="fa fa-save"></i> Cancel </button>
+                                                                    <?=form_close();?>
+                                                                    <?php 
+                                                                    echo "</td></tr>";
+                                                                }
+                                                                ?>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                <?php endif;?>
                                             </td>
                                         <?php else:?>
                                             <td colspan="5">No Hostel Book Selected.</td>
@@ -145,6 +189,7 @@
                             $tr_thead_tfoot .= '<th scope="col">Class</th>';
                             $tr_thead_tfoot .= '<th scope="col">Session/Status</th>';
                             $tr_thead_tfoot .= '<th scope="col">SID</th>';
+                            $tr_thead_tfoot .= '<th scope="col">Room</th>';
                         $tr_thead_tfoot .= '</tr>';
                         ?>
                         <thead class="thead-light"><?php echo $tr_thead_tfoot; ?></thead>
@@ -177,6 +222,7 @@
                                             <?=isset(get_student_class_status()[$stdDta->scm_status]) ? get_student_class_status()[$stdDta->scm_status]: '';?>
                                         </td>
                                         <td><?=esc($stdDta->student_u_id);?></td>
+                                        <td><?=esc(service('HostelRoomsBookingModel')->where('hrb_student_id',$stdDta->student_u_id)->countAllResults());?></td>  
                                     </tr>
                                 <?php endforeach; ?>
                             <?php else: ?>
