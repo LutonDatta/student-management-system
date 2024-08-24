@@ -20,7 +20,8 @@ class Hostel_and_rooms_Model extends Model{
     
     protected $validationRules  = [
         'hos_parent'        => ['label' => 'Parent Item',   'rules' => 'permit_empty|greater_than_equal_to[1]|max_length[11]'],
-        'hos_capacity'      => ['label' => 'Capacity',      'rules' => 'permit_empty|greater_than_equal_to[1]|max_length[11]'],
+        // Seats of a room can not be more then 100, floors of a building can not be greater then 100 etc
+        'hos_capacity'      => ['label' => 'Capacity',      'rules' => 'permit_empty|greater_than_equal_to[1]|less_than_equal_to[100]|max_length[4]'],
         // Use alpha_numeric_punct to allow some special cheracters in name including space like: Class XII (Rose)
         'hos_title'         => ['label' => 'Title',         'rules' => 'required|alpha_numeric_punct|min_length[3]|max_length[150]'],
         'hos_excerpt'       => ['label' => 'Excerpt',       'rules' => 'string|max_length[550]'],
@@ -50,10 +51,10 @@ class Hostel_and_rooms_Model extends Model{
      * @param bool $remove_parents If false passed it will include parent items separately.
      * return array( child_class_id => parent faculty name -> dept name -> class name ,..)
      */
-    public function get_hostel_room_with_parent_label( bool $remove_parents = true, bool $esc_values = true ){
+    public function get_hostel_room_with_parent_label( bool $remove_parents = true, bool $esc_values = true, bool $return_row_obj = false ){
         $t      = $this->DBPrefix . $this->table;
         $sql    =  "SELECT 
-                    t.hos_id, t.hos_title, t.hos_parent, 
+                    t.hos_id, t.hos_title, t.hos_parent, t.hos_capacity,
                     t4.hos_title AS title_4, 
                     t3.hos_title AS title_3, 
                     t2.hos_title AS title_2, 
@@ -65,7 +66,7 @@ class Hostel_and_rooms_Model extends Model{
                 LEFT JOIN $t AS t1 ON t2.hos_parent = t1.hos_id
                 ";
         if($remove_parents){
-            $sql .= " AND t.hos_id NOT IN ( SELECT DISTINCT $t.hos_parent FROM $t ) ";
+            $sql .= " WHERE t.hos_id NOT IN ( SELECT {$t}.hos_parent FROM $t WHERE {$t}.hos_parent IS NOT NULL ) ";
         }
         
         /**
@@ -79,12 +80,17 @@ class Hostel_and_rooms_Model extends Model{
         $classes = $this->query($sql)->getResult();
         $simplified_class_name = [];
         foreach( $classes as $cls ){
-            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' -> ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' -> ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' -> ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' -> ' : '';
-            $title .= $cls->hos_title;
-            $simplified_class_name[$cls->hos_id] = $esc_values ? esc($title) : $title;
+            $title = (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ?  ($esc_values ? esc($cls->title_1) : $cls->title_1) . ' -> ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc_values ? esc($cls->title_2) : $cls->title_2) . ' -> ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc_values ? esc($cls->title_3) : $cls->title_3) . ' -> ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc_values ? esc($cls->title_4) : $cls->title_4) . ' -> ' : '';
+            $title .= $esc_values ? esc($cls->hos_title) : $cls->hos_title;
+            if($return_row_obj){
+                $cls->title = $title;
+                $simplified_class_name[] = $cls;
+            }else{
+                $simplified_class_name[$cls->hos_id] = $title;
+            }
         }
         return $simplified_class_name; // Useable in dropdown
     }
@@ -97,11 +103,11 @@ class Hostel_and_rooms_Model extends Model{
      * @param bool $esc Escape title. Some cases we do not need to escape, pass false to prevent double escape if needed.
      * @return type
      */
-    public function get_hostel_room_with_parent_label_for_dropdown( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, bool $esc = true ){
-        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage );
+    public function get_hostel_room_with_parent_label_for_dropdown( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, bool $esc = true, int $pageNumber = 0, string $selectColumns = '' ){
+        $items = $this->get_hostel_room_with_parent_label_with_pagination( $remove_parents, $pageSfx, $perPage, $pageNumber, $selectColumns, $esc);
         $list = [];
         foreach($items as $itm ){
-            $list[$itm->hos_id] = $esc ? esc($itm->title) : $itm->title;
+            $list[$itm->hos_id] = $itm->title;
         }
         return $list;
     }
@@ -114,7 +120,7 @@ class Hostel_and_rooms_Model extends Model{
      * @param int $perPage
      * @return type
      */
-    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $page = 0, string $selectExtras = '' ){
+    public function get_hostel_room_with_parent_label_with_pagination( bool $remove_parents = true, string $pageSfx = 'clsprts', int $perPage = 20, int $pageNumber = 0, string $selectExtras = '', bool $esc = true, bool $addIdToTitle = false ){
         if($remove_parents){
             $this->whereNotIn("$this->table.hos_id", function($bldr){
                 return $bldr
@@ -126,22 +132,18 @@ class Hostel_and_rooms_Model extends Model{
         }
         
         $pager = \Config\Services::pager(null, null, false);
-        $page  = $page >= 1 ? $page : $pager->getCurrentPage($pageSfx);
+        $page  = $pageNumber >= 1 ? $pageNumber : $pager->getCurrentPage($pageSfx);
         
         // We may call this function from same request, so do not need to count many times, use previously counted rows to speed up
         // Speed up controller : Admission_automation->step_up_step_down() 
-	$this->total_counted = (property_exists($this, 'total_counted') AND $this->total_counted > 0) 
-                ? $this->total_counted 
-                : $this->countAllResults(false);
+	$this->total_counted = (property_exists($this, 'total_counted') AND $this->total_counted > 0) ? $this->total_counted : $this->countAllResults(false);
         
 	// Store it in the Pager library so it can be paginated in the views.
 	$this->pager    = $pager->store($pageSfx, $page, $perPage, $this->total_counted);
 	$offset         = ($page - 1) * $perPage;
                 
         $selectCols = [
-            "$this->table.hos_id",
-            "$this->table.hos_parent",
-            "$this->table.hos_title",
+            "$this->table.hos_id", "$this->table.hos_parent", "$this->table.hos_capacity", "$this->table.hos_title",
             't1.hos_title AS title_1', 
             't2.hos_title AS title_2', 
             't3.hos_title AS title_3', 
@@ -161,12 +163,12 @@ class Hostel_and_rooms_Model extends Model{
         $classes = [];
         
         foreach( $this->findAll($perPage, $offset) as $cls ){
-            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? $cls->title_5 . ' -> ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' -> ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' -> ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' -> ' : '';
-            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' -> ' : '';
-            $title .= $cls->hos_title . " [{$cls->hos_id}]";
+            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? ($esc ? esc($cls->title_5) : $cls->title_5) . ' -> ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc ? esc($cls->title_4) : $cls->title_4) . ' -> ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc ? esc($cls->title_3) : $cls->title_3) . ' -> ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc ? esc($cls->title_2) : $cls->title_2) . ' -> ' : '';
+            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? ($esc ? esc($cls->title_1) : $cls->title_1) . ' -> ' : '';
+            $title .= ($esc ? esc($cls->hos_title) : $cls->hos_title) . ($addIdToTitle ? " [{$cls->hos_id}]" : '');
             $cls->title = $title;
             $classes[] = $cls;
         }        
@@ -175,9 +177,10 @@ class Hostel_and_rooms_Model extends Model{
         return $classes;
     }
     
-    public function get_single_hostel_room_with_parent_label( int $class_id, string $selectColumns = '' ){
+    public function get_single_hostel_room_with_parent_label( int $class_id, string $selectColumns = '', bool $esc = true ){
         $selectCols = [
             "$this->table.hos_id",
+            "MAX({$this->DBPrefix}{$this->table}.hos_capacity) AS hos_capacity",
             "MAX({$this->DBPrefix}{$this->table}.hos_parent) AS hos_parent",
             "MAX({$this->DBPrefix}{$this->table}.hos_title) AS hos_title",
             "MAX({$this->DBPrefix}t1.hos_title) AS title_1", 
@@ -203,12 +206,12 @@ class Hostel_and_rooms_Model extends Model{
             return null; // If id is wrong, we have null value here
         }
                     
-            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? $cls->title_5 . ' > ' : '';
-            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? $cls->title_4 . ' > ' : '';
-            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? $cls->title_3 . ' > ' : '';
-            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? $cls->title_2 . ' > ' : '';
-            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? $cls->title_1 . ' > ' : '';
-            $title .= $cls->hos_title;
+            $title  = (is_string($cls->title_5) AND strlen($cls->title_5) > 0) ? ($esc ? esc($cls->title_5) : $cls->title_5) . ' > ' : '';
+            $title .= (is_string($cls->title_4) AND strlen($cls->title_4) > 0) ? ($esc ? esc($cls->title_4) : $cls->title_4) . ' > ' : '';
+            $title .= (is_string($cls->title_3) AND strlen($cls->title_3) > 0) ? ($esc ? esc($cls->title_3) : $cls->title_3) . ' > ' : '';
+            $title .= (is_string($cls->title_2) AND strlen($cls->title_2) > 0) ? ($esc ? esc($cls->title_2) : $cls->title_2) . ' > ' : '';
+            $title .= (is_string($cls->title_1) AND strlen($cls->title_1) > 0) ? ($esc ? esc($cls->title_1) : $cls->title_1) . ' > ' : '';
+            $title .= $esc ? esc($cls->hos_title) : $cls->hos_title;
             $cls->title = $title;
         return $cls;
     }

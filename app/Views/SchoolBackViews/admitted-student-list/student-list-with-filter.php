@@ -220,7 +220,7 @@
                     fa: 'fas fa-print', txt: 'Student Information', class: 'm-1 btn btn-info'
                 },{
                     url: '<?=base_url('print/student/admission/confirmation/form?scm_id=actScmId&user_id=actSID');?>',
-                    fa: 'fas fa-print', txt: 'Confirmation Form', class: 'm-1 btn btn-success'
+                    fa: 'fas fa-print', txt: 'Confirmation Form', class: 'm-1 btn btn-primary'
                 },{
                     url: '<?=base_url('admin/pg/cash/in/hand/collection/create/inv?student_scm_id=actScmId&student_uid=actSID');?>',
                     fa: 'fas fa-solid fa-wallet', txt: 'Hand Cash', class: 'm-1 btn btn-secondary'
@@ -230,6 +230,9 @@
                 },{
                     url: '<?=base_url('admin/academic/exam/results/view/own?student_id=actSID');?>',
                     fa: 'fas fa-solid fa-id-badge', txt: 'Mark Sheet - Multi', class: 'm-1 btn btn-success'
+                },{
+                    url: '<?=base_url('admin/hostel/bed/distribution?student_id=actSID');?>',
+                    fa: 'fa fa-regular fa-building', txt: 'Hostel Book', class: 'm-1 btn btn-primary'
                 }
             ], function( index, val ) {
                 $('#showActionsModalLabel').html('Student Actions - ' + actName );
