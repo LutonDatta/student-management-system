@@ -22,6 +22,12 @@ class Hostel_bed extends BaseController {
         $saveBS = $this->book_hostel_seat_save();
         if(is_object($saveBS)){ return $saveBS; }else{ $data = array_merge($data, $saveBS); }
         
+        $cancelBS = $this->book_hostel_seat_cancel_for_student();
+        if(is_object($cancelBS)){ return $cancelBS; }else{ $data = array_merge($data, $cancelBS); }
+        
+        $cancelBR = $this->book_hostel_seat_cancel_for_rooms();
+        if(is_object($cancelBR)){ return $cancelBR; }else{ $data = array_merge($data, $cancelBR); }
+        
         $singleSid = intval($this->request->getGet('student_id')); // SID, previously u_id
         $students_obj = service('CoursesClassesStudentsMappingModel')
                 ->select(implode(',',[
@@ -50,26 +56,77 @@ class Hostel_bed extends BaseController {
         echo view('SchoolBackViews/footer', $data);
     } /* EOM */
     
+    
+    private function book_hostel_seat_cancel_for_rooms(){
+        if($this->request->getPost('hostel_cancel_room_seat') !== 'yes'){ return []; }
+        
+        $seat_number    = intval($this->request->getPost('hostel_seat_no'));
+        $student_id     = intval($this->request->getPost('student_id'));
+        $hostel_room_id = intval($this->request->getPost('hostel_room_id'));
+        $hostel_room_id_rdr = intval($this->request->getPost('hostel_room_id_showing_in_page'));
+        $redirectLink   = base_url("admin/hostel/bed/distribution?student_id={$student_id}&hostel_room_id={$hostel_room_id_rdr}");
+        
+        $isOccupied = service('HostelRoomsBookingModel')->select('hrb_id')->where('hrb_student_id',$student_id)->where('hrb_hos_id',$hostel_room_id)->where('hrb_seat_no', $seat_number)->first();
+        if( ! is_object($isOccupied)){
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('This Seat is not occupied.','danger'));
+        }
+        $insert = service('HostelRoomsBookingModel')->delete($isOccupied->hrb_id, true);
+        if($insert){
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Seat cancelled Successful.','success'));
+        }else{
+            $errors = service('HostelRoomsBookingModel')->errors();
+            $errStr = implode(', ', $errors);
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Failed to cancel seat. Please try again. ' . $errStr,'danger'));
+        }
+        
+    } /* EOM */
+    
+    
+    private function book_hostel_seat_cancel_for_student(){
+        if($this->request->getPost('hostel_cancel_sid_seat') !== 'yes'){ return []; }
+        
+        $seat_number    = intval($this->request->getPost('hostel_seat_no'));
+        $student_id     = intval($this->request->getPost('student_id'));
+        $hostel_room_id = intval($this->request->getPost('hostel_room_id'));
+        $hostel_room_id_rdr = intval($this->request->getPost('hostel_room_id_showing_in_page'));
+        $redirectLink   = base_url("admin/hostel/bed/distribution?student_id={$student_id}&hostel_room_id={$hostel_room_id_rdr}");
+        
+        $isOccupied = service('HostelRoomsBookingModel')->select('hrb_id')->where('hrb_student_id',$student_id)->where('hrb_hos_id',$hostel_room_id)->where('hrb_seat_no', $seat_number)->first();
+        if( ! is_object($isOccupied)){
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('This Seat is not occupied.','danger'));
+        }
+        $insert = service('HostelRoomsBookingModel')->delete($isOccupied->hrb_id, true);
+        if($insert){
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Seat cancelled Successful.','success'));
+        }else{
+            $errors = service('HostelRoomsBookingModel')->errors();
+            $errStr = implode(', ', $errors);
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Failed to cancel seat. Please try again. ' . $errStr,'danger'));
+        }
+        
+    } /* EOM */
+    
     private function book_hostel_seat_save(){
         if($this->request->getPost('hostel_room_book') !== 'yes'){ return []; }
         
         $seat_number    = intval($this->request->getPost('seat_number'));
         $student_id     = intval($this->request->getPost('student_id'));
         $hostel_room_id = intval($this->request->getPost('hostel_room_id'));
+        $redirectLink   = base_url("admin/hostel/bed/distribution?student_id={$student_id}&hostel_room_id={$hostel_room_id}");
         
         $student        = service('StudentsModel')->find($student_id);
         if( ! is_object($student)){
-            return redirect()->to(base_url('admin/hostel/bed/distribution'))->with('display_msg', get_display_msg('Invalid Student ID','danger'));
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Invalid Student ID','danger'));
         }
         
         $hostel_room    = service('HostelAndRoomsModel')->find($hostel_room_id);
         if( ! is_object($hostel_room)){
-            return redirect()->to(base_url('admin/hostel/bed/distribution'))->with('display_msg', get_display_msg('Invalid Hostel Room ID','danger'));
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Invalid Hostel Room ID','danger'));
         }
         
         $isOccupied = service('HostelRoomsBookingModel')->where('hrb_hos_id',$hostel_room_id)->where('hrb_seat_no', $seat_number)->first();
         if(is_object($isOccupied)){
-            return redirect()->to(base_url('admin/hostel/bed/distribution'))->with('display_msg', get_display_msg('This Seat is already occupied.','danger'));
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('This Seat is already occupied.','danger'));
         }
         $insert = service('HostelRoomsBookingModel')->insert([
                                             'hrb_hos_id'    => $hostel_room_id,
@@ -77,11 +134,11 @@ class Hostel_bed extends BaseController {
                                             'hrb_student_id'=> $student_id
                                         ]);
         if($insert){
-            return redirect()->to(base_url('admin/hostel/bed/distribution'))->with('display_msg', get_display_msg('Seat Booking Successful.','success'));
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Seat Booking Successful.','success'));
         }else{
             $errors = service('HostelRoomsBookingModel')->errors();
             $errStr = implode(', ', $errors);
-            return redirect()->to(base_url('admin/hostel/bed/distribution'))->with('display_msg', get_display_msg('Failed to book seat. Please try again. ' . $errStr,'danger'));
+            return redirect()->to($redirectLink)->with('display_msg', get_display_msg('Failed to book seat. Please try again. ' . $errStr,'danger'));
         }
     } /* EoF */
     
