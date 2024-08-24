@@ -20,7 +20,8 @@ class Hostel_and_rooms_Model extends Model{
     
     protected $validationRules  = [
         'hos_parent'        => ['label' => 'Parent Item',   'rules' => 'permit_empty|greater_than_equal_to[1]|max_length[11]'],
-        'hos_capacity'      => ['label' => 'Capacity',      'rules' => 'permit_empty|greater_than_equal_to[1]|max_length[11]'],
+        // Seats of a room can not be more then 100, floors of a building can not be greater then 100 etc
+        'hos_capacity'      => ['label' => 'Capacity',      'rules' => 'permit_empty|greater_than_equal_to[1]|less_than_equal_to[100]|max_length[4]'],
         // Use alpha_numeric_punct to allow some special cheracters in name including space like: Class XII (Rose)
         'hos_title'         => ['label' => 'Title',         'rules' => 'required|alpha_numeric_punct|min_length[3]|max_length[150]'],
         'hos_excerpt'       => ['label' => 'Excerpt',       'rules' => 'string|max_length[550]'],
