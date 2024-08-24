@@ -125,4 +125,10 @@ class Services extends CoreServices
     } /* EOM */
     
     
+    public static function HostelRoomsBookingModel($getShared = true){
+        if (! $getShared){ return new \App\Models\Hostel_rooms_booking_Model(); }
+        return static::getSharedInstance('HostelRoomsBookingModel');
+    } /* EOM */
+    
+    
 } //EOC

@@ -54,6 +54,10 @@ class Migration_add_foreign_keys extends \CodeIgniter\Database\Migration {
             [ 'daily_attendance_book', 'dab_course_id',  'courses', 'co_id', 'CASCADE', 'CASCADE'], // Delete/update with parent row
             
             [ 'hand_cash_collections',      'hc_scm_id',        'courses_classes_students_mapping', 'scm_id', 'RESTRICT', 'CASCADE'],
+            
+            [ 'hostel_and_rooms',      'hos_parent',        'hostel_and_rooms', 'hos_id',       'CASCADE', 'CASCADE'],
+            [ 'hostel_rooms_booking',   'hrb_hos_id',       'hostel_and_rooms', 'hos_id',       'CASCADE', 'CASCADE'],
+            [ 'hostel_rooms_booking',   'hrb_student_id',   'students',         'student_u_id', 'CASCADE', 'CASCADE'],
         );
         
         foreach( $foreignKeys as $idx => $fk ){
@@ -64,12 +68,9 @@ class Migration_add_foreign_keys extends \CodeIgniter\Database\Migration {
         }
         
         $this->db->enableForeignKeyChecks();
-    }
+    } /* EOM */
 
-    public function down(){ 
-        
-        
-    } // EOM
+    public function down(){  } /* EOM */
     
 } // EOC
 
